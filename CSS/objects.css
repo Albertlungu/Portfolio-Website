@@ -1,0 +1,53 @@
+.belt-decor {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.belt-decor__belt {
+    position: absolute;
+    left: -10vw;
+    width: 120vw;
+    height: clamp(32px, 8vh, 72px);
+    background: linear-gradient(110deg, rgba(255, 170, 80, 0.9), rgba(255, 214, 150, 0.65));
+    border-radius: clamp(18px, 5vh, 42px);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.belt-decor__belt::before,
+.belt-decor__belt::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(140deg, rgba(255, 220, 168, 0.35), transparent 62%);
+    mix-blend-mode: screen;
+}
+
+.belt-decor__belt::after {
+    background: linear-gradient(220deg, rgba(74, 168, 255, 0.26), transparent 70%);
+}
+
+.belt-decor__belt--one {
+    top: 18vh;
+    transform: rotate(-3deg);
+}
+
+.belt-decor__belt--two {
+    top: 48vh;
+    transform: rotate(1.8deg);
+    background: linear-gradient(105deg, rgba(255, 155, 68, 0.88), rgba(255, 208, 140, 0.58));
+}
+
+.belt-decor__belt--three {
+    top: 72vh;
+    transform: rotate(-1.2deg);
+    background: linear-gradient(115deg, rgba(255, 180, 92, 0.82), rgba(255, 215, 150, 0.55));
+}
+
+@media (max-width: 780px) {
+    .belt-decor__belt {
+        height: clamp(24px, 7vh, 56px);
+    }
+}

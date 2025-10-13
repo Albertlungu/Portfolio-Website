@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albert Lungu | Projects</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel='stylesheet' href='../CSS/projects.css'>
+    <link rel='stylesheet' href='../CSS/background.css'>
+    <link rel='stylesheet' href='../CSS/text.css'>
+</head>
+<body>
+    <canvas id='bg'></canvas>
+
+    <main class='projects-page'>
+
+        <header class='projects-page__bar'>
+            <a class='home-link' href='../HTML/index.html' aria-label='Go home'>
+                <span class='home-link__icon'>
+                    <svg width='26' height='26' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                        <path d='M4 10.5L12 4L20 10.5V19C20 19.8284 19.3284 20.5 18.5 20.5H5.5C4.67157 20.5 4 19.8284 4 19V10.5Z' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/>
+                        <path d='M9 20.5V12H15V20.5' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/>
+                    </svg>
+                </span>
+            </a>
+        </header>
+
+        <section class='project-shell'>
+        <!-- Project list should be on the left of page -->
+        <section class='project-list'>
+            <h1 class='project-list__title'>Projects</h1>
+            <ul class='project-list__items'>
+                <li class='project-list__item' data-project-key='magsafe'>DIY MagSafe Charger</li>
+            </ul>
+        </section>
+
+        <!-- 3D Viewer + Readme on right of page -->
+         <section class='project-display project-display--hidden'>
+
+            <!-- confusing, but the left half of the right side? I guess? Basically where jpgs and stls and shit are displayed -->
+            <div class='project-visuals'>
+                <!-- TOP part of the viewer (stl) -->
+                 <div class='viewer-top'>
+                    <div class='viewer-controls'>
+                    <label for='modelSelector'>Select model</label>
+                    <select id='modelSelector'></select>
+                </div>
+                    <canvas id='stlViewer' aria-label='3D model viewer'></canvas>
+                 </div>
+
+                 <!-- BOTTOM part (jpg viewer) -->
+                <div class='viewer-bottom'>
+                    <img id='projectImage' alt='Project preview' loading='lazy'>
+                </div>
+            </div>
+
+            <!-- RIGHT half - README -->
+             <div class='project-readme'>
+                <div class='project-readme__header'>
+                    <h2>README</h2>
+                    <span class='project-readme__project-name'></span>
+                </div>
+                <div id='readmeContent' class='project-readme__content'>Loading README…</div>
+             </div>
+
+         </section>
+        </section>
+    </main>
+
+    <!-- Marked.js for Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Three.js ES Module with importmap -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/jsm/"
+      }
+    }
+    </script>
+
+    <!-- Your scripts as ES modules -->
+    <script type="module" src='../JS/stlviewer.js'></script>
+    <script src='../JS/loadreadme.js'></script>
+    
+</body>
+</html>

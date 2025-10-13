@@ -1,0 +1,274 @@
+
+h1 {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    letter-spacing: 1px;
+}
+
+p {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.text-panel {
+    position: relative;
+    display: inline-block;
+    padding: 2.4rem 3rem;
+    --panel-radius-base: 28px;
+    --panel-radius-tl: var(--panel-radius-base);
+    --panel-radius-tr: var(--panel-radius-base);
+    --panel-radius-br: var(--panel-radius-base);
+    --panel-radius-bl: var(--panel-radius-base);
+    border-radius: var(--panel-radius-tl) var(--panel-radius-tr) var(--panel-radius-br) var(--panel-radius-bl);
+    background: linear-gradient(135deg, rgba(255, 165, 74, 0.78) 0%, rgba(176, 69, 24, 0.86) 46%, rgba(124, 43, 16, 0.9) 100%);
+    box-shadow: 0 28px 60px var(--color-shadow-strong);
+    overflow: hidden;
+    isolation: isolate;
+    animation: panel-fade-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both,
+               panel-glimmer 18s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    --panel-hover-x: 50%;
+    --panel-hover-y: 50%;
+    transform: translateY(0) scale(1);
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                border-radius 0.72s cubic-bezier(0.25, 0.75, 0.25, 1);
+}
+
+.text-panel::before {
+    content: "";
+    position: absolute;
+    inset: -25% -20%;
+    border-radius: inherit;
+    background:
+        radial-gradient(circle at var(--panel-hover-x, 50%) var(--panel-hover-y, 50%), rgba(255, 240, 224, 0.45) 0%, rgba(255, 181, 98, 0.24) 32%, rgba(24, 12, 6, 0) 72%),
+        radial-gradient(circle at 25% 15%, rgba(255, 208, 120, 0.28), transparent 62%),
+        radial-gradient(circle at 82% 78%, rgba(74, 168, 255, 0.25), transparent 70%);
+    opacity: 0.62;
+    transform: scale(0.96);
+    animation: panel-before-breathe 16s ease-in-out infinite alternate;
+    z-index: -1;
+}
+
+.text-panel::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius:
+        calc(var(--panel-radius-tl) - 6px)
+        calc(var(--panel-radius-tr) - 6px)
+        calc(var(--panel-radius-br) - 6px)
+        calc(var(--panel-radius-bl) - 6px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.text-panel--interactive {
+    box-shadow: 0 34px 72px rgba(18, 9, 4, 0.75);
+}
+
+@keyframes panel-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes panel-glimmer {
+    0% {
+        box-shadow: 0 22px 52px rgba(15, 16, 28, 0.5);
+    }
+    50% {
+        box-shadow: 0 36px 82px rgba(15, 16, 28, 0.72);
+    }
+    100% {
+        box-shadow: 0 28px 66px rgba(15, 16, 28, 0.55);
+    }
+}
+
+@keyframes panel-before-breathe {
+    0% {
+        opacity: 0.36;
+        transform: translate3d(-2.8%, -1.4%, 0) scale(0.9);
+    }
+    50% {
+        opacity: 0.64;
+        transform: translate3d(2.4%, 1.2%, 0) scale(0.99);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translate3d(-1.6%, 2.1%, 0) scale(0.94);
+    }
+}
+
+.links {
+    margin-top: 1.5rem;
+}
+
+.links a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    padding: 0.35rem 1.1rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-radius: 999px;
+    overflow: hidden;
+    --hover-x: 50%;
+    transition-property: transform, color, letter-spacing, text-shadow;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0.25, 0.75, 0.25, 1);
+    will-change: transform, letter-spacing, background;
+}
+
+.links a::before {
+    content: "";
+    position: absolute;
+    inset: -0.45rem -0.85rem;
+    background: radial-gradient(circle at var(--hover-x, 50%) 50%, rgba(255, 239, 210, 0.55) 0%, rgba(255, 201, 130, 0.38) 32%, rgba(74, 168, 255, 0.18) 85%);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.links a::after {
+    content: "";
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    bottom: 0.35rem;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(74, 168, 255, 0), rgba(255, 198, 120, 0.92), rgba(74, 168, 255, 0));
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.55s cubic-bezier(0.6, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.links a:hover{
+    color: #ffe9c7;
+    letter-spacing: 1.1px;
+    transform: translateY(-3px) scale(1.035);
+    text-shadow: 0 14px 30px rgba(255, 185, 110, 0.42);
+}
+
+.links a:hover::before {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.links a:hover::after {
+    transform: scaleX(1);
+}
+
+@font-face {
+    font-family: "FlamanteRoundBold";
+    src: url("../Assets/Fonts/FlamanteRoundBold.ttf");
+    font-weight: normal;
+    font-style: italic;
+}
+
+h1 span {
+    color: var(--color-accent-blue);
+}
+
+body.custom-cursor-active {
+    cursor: none;
+}
+
+body.custom-cursor-active a {
+    cursor: none;
+}
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 26px;
+    height: 26px;
+    border: 2px solid rgba(255, 198, 120, 0.85);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(var(--cursor-scale, 1));
+    transition: left 0.16s cubic-bezier(0.22, 1, 0.36, 1), top 0.16s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    opacity: 0;
+    z-index: 1000;
+    mix-blend-mode: difference;
+    backdrop-filter: blur(2px);
+    will-change: transform, opacity;
+}
+
+.custom-cursor--visible {
+    opacity: 1;
+}
+
+.custom-cursor--panel {
+    --cursor-scale: 1.18;
+    border-color: rgba(255, 222, 170, 0.85);
+    background-color: rgba(255, 198, 120, 0.16);
+}
+
+.custom-cursor--link {
+    --cursor-scale: 1.25;
+    border-color: rgba(255, 215, 140, 0.9);
+    background-color: rgba(255, 198, 120, 0.22);
+}
+
+.custom-cursor--pressed {
+    --cursor-scale: 0.9;
+    border-color: rgba(255, 198, 120, 0.6);
+    background-color: rgba(255, 198, 120, 0.32);
+}
+/* 
+h1 span::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(138, 138, 255, 0.2) 0%, rgba(255, 255, 255, 0.65) 50%, rgba(138, 138, 255, 0.2) 100%);
+    opacity: 0;
+    transform: scale(0.85) translateY(25%);
+    transition: opacity 0.6s ease, transform 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: -1;
+    pointer-events: none;
+}
+
+h1 span::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 0.35rem;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(138, 138, 255, 0), rgba(255, 255, 255, 0.9), rgba(138, 138, 255, 0));
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.6, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+h1 span:hover {
+    color: #ffffff;
+    letter-spacing: 2.4px;
+    transform: translateY(-6px);
+    text-shadow: 0 18px 40px rgba(138, 138, 255, 0.45);
+    font-family: 'FlamanteRoundBold', 'Arial', sans-serif;
+}
+
+h1 span:hover::before {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+h1 span:hover::after {
+    transform: scaleX(1);
+} */
