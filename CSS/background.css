@@ -27,15 +27,13 @@ main{
     text-align: center;
 }
 
+
+/* Text stuff sort of */
+
 h1 {
     font-size: 1.8rem;
     line-height: 2.5rem;
     letter-spacing: 1px;
-}
-
-h1-span {
-    font-weight: bold;
-    color: #8a8aff;
 }
 
 p {
@@ -57,4 +55,34 @@ p {
 
 .links a:hover{
     color: #ffffff;
+}
+
+@font-face {
+    font-family: "FlamanteRoundBold";
+    src: url("../Assets/Fonts/FlamanteRoundBold.ttf");
+    font-weight: normal;
+    font-style: italic;
+}
+
+h1 span {
+    position: relative;
+    display: inline-block;
+    color: #8a8aff;
+    cursor: pointer;
+    transition: color 0.4s ease;
+}
+
+h1 span::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: 'FlamanteRoundBold';
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+h1 span:hover::after {
+    opacity: 1;
 }
