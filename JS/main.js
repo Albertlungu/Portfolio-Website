@@ -1,10 +1,71 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const body = document.body;
   const linkElements = document.querySelectorAll('.links a');
   const textPanel = document.querySelector('.text-panel');
+  const body = document.body;
+
+  const supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
+  const themeCursor = supportsFinePointer ? document.createElement('div') : null;
+  if (themeCursor) {
+    themeCursor.className = 'cursor-theme';
+    document.body.appendChild(themeCursor);
+  }
+
+  const heroParallax = document.querySelector('.hero-parallax');
+  const parallaxLayers = heroParallax ? Array.from(heroParallax.querySelectorAll('.parallax-layer')) : [];
+
+  let parallaxMouseX = 0.5;
+  let parallaxMouseY = 0.5;
+  let parallaxFrame = null;
+
+  const scheduleParallax = () => {
+    if (!parallaxLayers.length) {
+      return;
+    }
+    if (parallaxFrame) {
+      return;
+    }
+    parallaxFrame = requestAnimationFrame(() => {
+      parallaxFrame = null;
+      const scrollFactor = Math.min(1, window.scrollY / (window.innerHeight || 1));
+      parallaxLayers.forEach((layer) => {
+        const depth = parseFloat(layer.dataset.depth || '0');
+        const translateX = (parallaxMouseX - 0.5) * depth * 90;
+        const translateY = (parallaxMouseY - 0.5) * depth * 60 + scrollFactor * depth * 120;
+        layer.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
+      });
+    });
+  };
+
+  if (parallaxLayers.length) {
+    scheduleParallax();
+    window.addEventListener('pointermove', (event) => {
+      parallaxMouseX = event.clientX / window.innerWidth;
+      parallaxMouseY = event.clientY / window.innerHeight;
+      scheduleParallax();
+    });
+
+    window.addEventListener('scroll', scheduleParallax, { passive: true });
+    window.addEventListener('resize', scheduleParallax);
+  }
 
   const pointerIsFine = (event) => {
     return event.pointerType === 'mouse' || event.pointerType === 'pen' || event.pointerType === '';
+  };
+
+  const showThemeCursor = () => {
+    if (!themeCursor) {
+      return;
+    }
+    themeCursor.classList.add('cursor-theme--visible');
+    body.classList.add('custom-cursor-active');
+  };
+
+  const hideThemeCursor = () => {
+    if (!themeCursor) {
+      return;
+    }
+    themeCursor.classList.remove('cursor-theme--visible', 'cursor-theme--link', 'cursor-theme--panel');
+    body.classList.remove('custom-cursor-active');
   };
 
   const updateLinkGradient = (link, event) => {
@@ -33,9 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       updateLinkGradient(link, event);
-      if (customCursor) {
-        customCursor.classList.add('custom-cursor--link');
-      }
+      themeCursor?.classList.add('cursor-theme--link');
     });
 
     link.addEventListener('pointermove', (event) => {
@@ -43,6 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       updateLinkGradient(link, event);
+      themeCursor && (themeCursor.style.left = `${event.clientX}px`);
+      themeCursor && (themeCursor.style.top = `${event.clientY}px`);
     });
 
     link.addEventListener('pointerleave', (event) => {
@@ -50,22 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       link.style.setProperty('--hover-x', '50%');
-      if (customCursor) {
-        customCursor.classList.remove('custom-cursor--link');
-      }
+      themeCursor?.classList.remove('cursor-theme--link');
     });
   });
 
-  const supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
-  let customCursor = null;
-  let cursorVisible = false;
   let radiusResetTimeout = null;
-
-  if (supportsFinePointer) {
-    customCursor = document.createElement('div');
-    customCursor.className = 'custom-cursor';
-    body.appendChild(customCursor);
-  }
 
   if (textPanel) {
     const resetPanelRadius = () => {
@@ -88,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
       resetPanelRadius();
       updatePanelGlow(event);
       textPanel.classList.add('text-panel--interactive');
-      if (customCursor) {
-        customCursor.classList.add('custom-cursor--panel');
-      }
+      themeCursor?.classList.add('cursor-theme--panel');
+      themeCursor && (themeCursor.style.left = `${event.clientX}px`);
+      themeCursor && (themeCursor.style.top = `${event.clientY}px`);
     });
 
     textPanel.addEventListener('pointermove', (event) => {
@@ -98,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       updatePanelGlow(event);
+      themeCursor && (themeCursor.style.left = `${event.clientX}px`);
+      themeCursor && (themeCursor.style.top = `${event.clientY}px`);
     });
 
     textPanel.addEventListener('pointerleave', (event) => {
@@ -105,9 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       textPanel.classList.remove('text-panel--interactive');
-      if (customCursor) {
-        customCursor.classList.remove('custom-cursor--panel');
-      }
+      themeCursor?.classList.remove('cursor-theme--panel');
       if (radiusResetTimeout) {
         clearTimeout(radiusResetTimeout);
       }
@@ -175,57 +225,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const showCursor = () => {
-    if (!customCursor || cursorVisible) {
-      return;
-    }
-    customCursor.classList.add('custom-cursor--visible');
-    body.classList.add('custom-cursor-active');
-    cursorVisible = true;
-  };
-
-  const hideCursor = () => {
-    if (!customCursor) {
-      return;
-    }
-    customCursor.classList.remove('custom-cursor--visible', 'custom-cursor--link', 'custom-cursor--pressed');
-    cursorVisible = false;
-  };
-
-  if (customCursor) {
+  if (themeCursor) {
     window.addEventListener('pointermove', (event) => {
       if (!pointerIsFine(event)) {
         return;
       }
-
-      showCursor();
-      customCursor.style.left = `${event.clientX}px`;
-      customCursor.style.top = `${event.clientY}px`;
+      showThemeCursor();
+      themeCursor.style.left = `${event.clientX}px`;
+      themeCursor.style.top = `${event.clientY}px`;
     });
 
-    window.addEventListener('pointerdown', (event) => {
-      if (!pointerIsFine(event)) {
-        return;
-      }
-      customCursor.classList.add('custom-cursor--pressed');
+    window.addEventListener('pointerdown', () => {
+      themeCursor?.classList.add('cursor-theme--pressed');
     });
 
-    window.addEventListener('pointerup', (event) => {
-      if (!pointerIsFine(event)) {
-        return;
-      }
-      customCursor.classList.remove('custom-cursor--pressed');
+    window.addEventListener('pointerup', () => {
+      themeCursor?.classList.remove('cursor-theme--pressed');
     });
 
     document.addEventListener('pointerout', (event) => {
       if (!pointerIsFine(event) || event.relatedTarget) {
         return;
       }
-      hideCursor();
+      hideThemeCursor();
     });
 
-    window.addEventListener('blur', () => {
-      hideCursor();
-    });
+    window.addEventListener('blur', hideThemeCursor);
   }
 });

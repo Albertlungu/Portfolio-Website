@@ -5,27 +5,28 @@
 }
 
 :root {
-    --color-bg-deep: #120807;
-    --color-bg-mid: #1e0c05;
-    --color-bg-soft: #241409;
-    --color-text-primary: #ffe9c7;
-    --color-text-muted: rgba(255, 229, 198, 0.72);
-    --color-accent-warm: #ff9a3c;
-    --color-accent-warm-strong: #ffbf5b;
-    --color-accent-blue: #4aa8ff;
-    --color-panel-border: rgba(255, 177, 92, 0.24);
-    --color-shadow-strong: rgba(18, 9, 4, 0.68);
-    --color-shadow-soft: rgba(24, 12, 6, 0.38);
+    --color-bg-deep: #201010;
+    --color-bg-mid: #341812;
+    --color-bg-soft: #442318;
+    --color-text-primary: #fff0d9;
+    --color-text-muted: rgba(255, 240, 217, 0.75);
+    --color-accent-warm: #ffb262;
+    --color-accent-warm-strong: #ffc674;
+    --color-accent-blue: #58b8ff;
+    --color-panel-border: rgba(255, 193, 120, 0.26);
+    --color-shadow-strong: rgba(28, 14, 8, 0.55);
+    --color-shadow-soft: rgba(38, 18, 12, 0.32);
 }
 
 body, html {
     min-height: 100%;
     overflow-x: hidden;
+    overscroll-behavior: none;
     background:
-        radial-gradient(circle at 18% 22%, rgba(255, 180, 92, 0.22), transparent 58%),
-        radial-gradient(circle at 78% 18%, rgba(255, 240, 200, 0.16), transparent 54%),
-        radial-gradient(circle at 68% 82%, rgba(74, 168, 255, 0.12), transparent 60%),
-        linear-gradient(135deg, var(--color-bg-mid), var(--color-bg-deep));
+        radial-gradient(circle at 18% 22%, rgba(255, 198, 120, 0.28), transparent 58%),
+        radial-gradient(circle at 78% 18%, rgba(255, 240, 210, 0.22), transparent 54%),
+        radial-gradient(circle at 68% 82%, rgba(88, 184, 255, 0.18), transparent 60%),
+        linear-gradient(135deg, var(--color-bg-soft), var(--color-bg-deep));
     color: var(--color-text-primary);
     font-family: 'Ubuntu', sans-serif;
 }

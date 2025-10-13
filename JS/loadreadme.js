@@ -116,11 +116,8 @@
       console.warn(`Project data not found for key: ${projectKey}`);
       return;
     }
-    
-    if (projectDisplay) {
-      projectDisplay.classList.add('project-display--revealed');
-      projectDisplay.classList.remove('project-display--hidden');
-    }
+
+    projectDisplay?.classList.remove('project-display--hidden');
     updateActiveListItem(projectKey);
     setProjectImage(project);
     loadProjectReadme(project);
@@ -137,13 +134,16 @@
     if (initialModelUrl) {
       notifyModelChange(initialModelUrl);
     }
+
+    if (projectDisplay) {
+      projectDisplay.classList.add('project-display--revealed');
+      projectDisplay.classList.remove('project-display--hidden');
+    }
   }
 
   function hideProject() {
-    if (projectDisplay) {
-      projectDisplay.classList.add('project-display--hidden');
-      projectDisplay.classList.remove('project-display--revealed');
-    }
+    projectDisplay?.classList.remove('project-display--revealed');
+    projectDisplay?.classList.add('project-display--hidden');
     updateActiveListItem('');
   }
 
@@ -172,8 +172,6 @@
 
   function handleProjectMouseEnter(event) {
     const hoverKey = event.currentTarget.dataset.projectKey;
-    
-    // Only show on hover if not pinned to a different project
     if (!isPinned && hoverKey) {
       currentKey = hoverKey;
       showProject(hoverKey);
@@ -182,8 +180,6 @@
 
   function handleProjectMouseLeave(event) {
     const leaveKey = event.currentTarget.dataset.projectKey;
-    
-    // Only hide on mouse leave if not pinned
     if (!isPinned && leaveKey === currentKey) {
       currentKey = null;
       hideProject();
@@ -206,10 +202,8 @@
     }
 
     // Start with display hidden
-    if (projectDisplay) {
-      projectDisplay.classList.add('project-display--hidden');
-      projectDisplay.classList.remove('project-display--revealed');
-    }
+    projectDisplay?.classList.add('project-display--hidden');
+    projectDisplay?.classList.remove('project-display--revealed');
   }
 
   if (document.readyState === 'loading') {

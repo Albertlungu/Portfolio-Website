@@ -1,53 +1,350 @@
-.belt-decor {
+.hero-parallax {
     position: fixed;
     inset: 0;
     pointer-events: none;
+    overflow: hidden;
     z-index: -1;
 }
 
-.belt-decor__belt {
+.parallax-layer {
     position: absolute;
-    left: -10vw;
-    width: 120vw;
-    height: clamp(32px, 8vh, 72px);
-    background: linear-gradient(110deg, rgba(255, 170, 80, 0.9), rgba(255, 214, 150, 0.65));
-    border-radius: clamp(18px, 5vh, 42px);
-    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.25);
+    inset: -12vh -14vw;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.25s ease-out;
+}
+
+.parallax-layer--belts {
+    z-index: 1;
+}
+
+.parallax-layer--math {
+    z-index: 2;
+}
+
+.parallax-layer--symbols {
+    z-index: 3;
+}
+
+.parallax-layer--snippets {
+    z-index: 4;
+}
+
+.belt {
+    position: absolute;
+    display: block;
+    width: clamp(68px, 6.8vw, 110px);
+    height: clamp(420px, 68vh, 560px);
+    background:
+        linear-gradient(90deg, #32170f 0%, #512618 24%, #84371e 24%, #84371e 76%, #512618 76%, #30160e 100%);
+    border-radius: clamp(36px, 5vw, 52px);
+    box-shadow:
+        0 24px 48px rgba(22, 8, 6, 0.45),
+        inset 0 6px 18px rgba(255, 230, 210, 0.16);
     overflow: hidden;
 }
 
-.belt-decor__belt::before,
-.belt-decor__belt::after {
+.belt::before {
+    content: "";
+    position: absolute;
+    inset: clamp(14px, 2.2vw, 26px);
+    border-radius: clamp(28px, 4vw, 42px);
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 238, 220, 0.18) 0px,
+        rgba(255, 238, 220, 0.18) 8px,
+        rgba(20, 8, 4, 0.25) 8px,
+        rgba(20, 8, 4, 0.25) 16px
+    );
+    opacity: 0.55;
+    mix-blend-mode: overlay;
+}
+
+.belt::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(140deg, rgba(255, 220, 168, 0.35), transparent 62%);
+    background: linear-gradient(120deg, rgba(255, 209, 158, 0.35), transparent 60%);
     mix-blend-mode: screen;
+    animation: belt-gloss 6s ease-in-out infinite;
 }
 
-.belt-decor__belt::after {
-    background: linear-gradient(220deg, rgba(74, 168, 255, 0.26), transparent 70%);
+.belt--one {
+    top: -14vh;
+    left: 9vw;
+    transform: rotate(18deg);
 }
 
-.belt-decor__belt--one {
+.belt--two {
+    top: -10vh;
+    left: 56vw;
+    transform: rotate(102deg);
+}
+
+.belt--three {
+    bottom: -18vh;
+    left: 28vw;
+    height: clamp(360px, 58vh, 520px);
+    transform: rotate(-12deg);
+}
+
+@keyframes belt-gloss {
+    0%, 100% {
+        opacity: 0.42;
+    }
+    50% {
+        opacity: 0.9;
+    }
+}
+
+.math-wave {
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    height: auto;
+}
+
+.math-wave path {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 22 18;
+    animation: sine-wave 7.2s linear infinite;
+}
+
+.math-wave--primary {
+    top: 14vh;
+}
+
+.math-wave--primary path {
+    stroke: rgba(88, 184, 255, 0.7);
+    filter: drop-shadow(0 16px 32px rgba(48, 120, 188, 0.35));
+}
+
+.math-wave--secondary {
+    top: 30vh;
+    opacity: 0.48;
+}
+
+.math-wave--secondary path {
+    stroke: rgba(255, 209, 158, 0.55);
+    animation-duration: 9.6s;
+    animation-direction: reverse;
+}
+
+.math-curve {
+    position: absolute;
+    width: clamp(160px, 18vw, 240px);
+    height: auto;
+}
+
+.math-curve path {
+    fill: none;
+    stroke: rgba(255, 230, 206, 0.6);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 18 20;
+    animation: tangent-shimmer 8s ease-in-out infinite;
+}
+
+.math-curve--tangent {
     top: 18vh;
-    transform: rotate(-3deg);
+    right: 6vw;
+    transform: rotate(-6deg);
 }
 
-.belt-decor__belt--two {
-    top: 48vh;
-    transform: rotate(1.8deg);
-    background: linear-gradient(105deg, rgba(255, 155, 68, 0.88), rgba(255, 208, 140, 0.58));
+@keyframes sine-wave {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: -260;
+    }
 }
 
-.belt-decor__belt--three {
+@keyframes tangent-shimmer {
+    0%, 100% {
+        opacity: 0.58;
+        filter: drop-shadow(0 0 0 rgba(255, 230, 206, 0));
+    }
+    50% {
+        opacity: 0.9;
+        filter: drop-shadow(0 14px 22px rgba(255, 220, 188, 0.35));
+    }
+}
+
+.math-symbol {
+    position: absolute;
+    font-weight: 500;
+    color: rgba(255, 240, 217, 0.68);
+    text-shadow:
+        0 10px 22px rgba(28, 14, 8, 0.45),
+        0 0 24px rgba(88, 184, 255, 0.32);
+    animation: symbol-float 14s ease-in-out infinite;
+}
+
+.math-symbol--sigma {
+    top: 16vh;
+    left: clamp(10%, 16vw, 22%);
+    font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+    animation-delay: -1.5s;
+}
+
+.math-symbol--pi {
+    top: 54vh;
+    right: clamp(8%, 14vw, 20%);
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+    animation-delay: -4.8s;
+}
+
+.math-symbol--integral {
+    top: 32vh;
+    right: clamp(36%, 44vw, 48%);
+    font-size: clamp(3rem, 5.4vw, 4.6rem);
+    animation-delay: -7.2s;
+}
+
+.math-symbol--phi {
+    top: 70vh;
+    left: clamp(20%, 30vw, 36%);
+    font-size: clamp(2rem, 3.6vw, 3.2rem);
+    animation-delay: -10.4s;
+}
+
+.math-symbol--lambda {
+    top: 42vh;
+    left: clamp(58%, 64vw, 68%);
+    font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+    animation-delay: -12.2s;
+}
+
+@keyframes symbol-float {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 0.56;
+    }
+    40% {
+        transform: translate3d(0.9rem, -1.6rem, 0) rotate(3deg);
+        opacity: 0.95;
+    }
+    70% {
+        transform: translate3d(-0.5rem, -2.1rem, 0) rotate(-2deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate3d(0.4rem, -0.6rem, 0) rotate(1deg);
+        opacity: 0.56;
+    }
+}
+
+.code-snippet {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.3rem;
+    border-radius: 18px;
+    background: rgba(34, 18, 12, 0.45);
+    border: 1px solid rgba(255, 193, 120, 0.28);
+    backdrop-filter: blur(6px);
+    color: rgba(255, 240, 217, 0.86);
+    font-family: "JetBrains Mono", "Fira Code", "Ubuntu Mono", monospace;
+    font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+    letter-spacing: 0.5px;
+    box-shadow: 0 20px 36px rgba(18, 8, 6, 0.38);
+    animation: snippet-float 10s ease-in-out infinite;
+}
+
+.code-snippet code {
+    color: inherit;
+    white-space: nowrap;
+}
+
+.code-snippet::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(255, 209, 158, 0.4), transparent 65%);
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.code-snippet--one {
+    top: 18vh;
+    right: clamp(6%, 14vw, 18%);
+}
+
+.code-snippet--two {
+    top: 46vh;
+    left: clamp(12%, 22vw, 28%);
+    animation-delay: -2.5s;
+}
+
+.code-snippet--three {
+    top: 58vh;
+    right: clamp(20%, 32vw, 34%);
+    animation-delay: -4.2s;
+}
+
+.code-snippet--four {
+    top: 32vh;
+    left: clamp(46%, 54vw, 58%);
+    animation-delay: -6.6s;
+}
+
+.code-snippet--five {
     top: 72vh;
-    transform: rotate(-1.2deg);
-    background: linear-gradient(115deg, rgba(255, 180, 92, 0.82), rgba(255, 215, 150, 0.55));
+    right: clamp(12%, 26vw, 30%);
+    animation-delay: -8.1s;
 }
 
-@media (max-width: 780px) {
-    .belt-decor__belt {
-        height: clamp(24px, 7vh, 56px);
+@keyframes snippet-float {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    35% {
+        transform: translate3d(0.8rem, -1.2rem, 0);
+    }
+    70% {
+        transform: translate3d(-0.6rem, -1.6rem, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@media (max-width: 900px) {
+    .parallax-layer {
+        inset: -18vh -28vw;
+    }
+
+    .belt {
+        width: clamp(54px, 9vw, 88px);
+        height: clamp(360px, 82vh, 520px);
+    }
+
+    .code-snippet {
+        font-size: clamp(0.72rem, 1.8vw, 0.88rem);
+    }
+}
+
+@media (max-width: 620px) {
+    .parallax-layer {
+        inset: -22vh -34vw;
+    }
+
+    .belt--two {
+        left: 64vw;
+    }
+
+    .code-snippet {
+        animation-duration: 8s;
+        padding: 0.45rem 1rem;
+    }
+
+    .code-snippet code {
+        white-space: normal;
+        text-align: center;
     }
 }

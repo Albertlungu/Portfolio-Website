@@ -19,18 +19,68 @@
 <body>
   <canvas id="bg"></canvas>
 
-  <main>
-    <div class="text-panel">
-      <h1>Hey guys! I'm <span data-text="Albert Lungu">Albert Lungu</span></h1>
-      <p>
-        I'm a fullstack developer, toying around with game dev, web dev, and app dev.
-      </p>
-      <div class="links">
-        <a href="../HTML/projects_page.html">See my projects!</a>
-        <a href="#">About me</a>
-        <a href="#">My Resume</a>
-      </div>
+  <div class="hero-parallax" aria-hidden="true">
+    <div class="parallax-layer parallax-layer--belts" data-depth="0.18">
+      <span class="belt belt--one"></span>
+      <span class="belt belt--two"></span>
+      <span class="belt belt--three"></span>
     </div>
+
+    <div class="parallax-layer parallax-layer--math" data-depth="0.28">
+      <svg class="math-wave math-wave--primary" viewBox="0 0 1200 320" preserveAspectRatio="none">
+        <path d="M0 170 Q 80 40 160 170 T 320 170 T 480 170 T 640 170 T 800 170 T 960 170 T 1120 170 T 1280 170" />
+      </svg>
+      <svg class="math-wave math-wave--secondary" viewBox="0 0 1200 320" preserveAspectRatio="none">
+        <path d="M0 150 Q 90 220 180 150 T 360 150 T 540 150 T 720 150 T 900 150 T 1080 150 T 1260 150 T 1440 150" />
+      </svg>
+      <svg class="math-curve math-curve--tangent" viewBox="0 0 240 320" preserveAspectRatio="none">
+        <path d="M40 320 C 90 280 110 240 122 200 C 134 150 138 90 140 10" />
+      </svg>
+    </div>
+
+    <div class="parallax-layer parallax-layer--symbols" data-depth="0.36">
+      <span class="math-symbol math-symbol--sigma">∑</span>
+      <span class="math-symbol math-symbol--pi">π</span>
+      <span class="math-symbol math-symbol--integral">∫</span>
+      <span class="math-symbol math-symbol--phi">φ</span>
+      <span class="math-symbol math-symbol--lambda">λ</span>
+    </div>
+
+    <div class="parallax-layer parallax-layer--snippets" data-depth="0.5">
+      <span class="code-snippet code-snippet--one"><code>print("Hello World!")</code></span>
+      <span class="code-snippet code-snippet--two"><code>while (true) { coffee++; }</code></span>
+      <span class="code-snippet code-snippet--three"><code>git commit -m "final_final_v2"</code></span>
+      <span class="code-snippet code-snippet--four"><code>// TODO: remove debug logs</code></span>
+      <span class="code-snippet code-snippet--five"><code>try { ship(); } catch (bugs) { patch(); }</code></span>
+    </div>
+  </div>
+
+  <main class="hero">
+    <section class="hero-pill" id="heroPill">
+      <div class="pill-scene">
+        <canvas id="heroPillCanvas" aria-hidden="true"></canvas>
+        <div class="pill-overlay" aria-live="polite">
+          <article class="pill-overlay__face pill-overlay__face--active" data-face="0">
+            <h1>Hey guys! I'm <span data-text="Albert Lungu">Albert Lungu</span></h1>
+          </article>
+          <article class="pill-overlay__face" data-face="1">
+            <p>I'm a fullstack developer exploring game dev, web dev, and app dev.</p>
+          </article>
+          <article class="pill-overlay__face" data-face="2">
+            <div class="links">
+              <a href="../HTML/projects_page.html">See my projects!</a>
+              <a href="#">About me</a>
+              <a href="#">My Resume</a>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="pill-shadow" aria-hidden="true"></div>
+      <div class="pill-instruction">
+        <span>Scroll to rotate</span>
+        <span class="pill-instruction__icon">⇣</span>
+      </div>
+    </section>
   </main>
 
   <!-- Three.js -->
@@ -43,6 +93,7 @@
   }
   </script>
   <script type="module" src="../JS/background.js"></script>
+  <script type="module" src="../JS/heropill.js"></script>
   <script src="../JS/main.js"></script>
 </body>
 </html>
