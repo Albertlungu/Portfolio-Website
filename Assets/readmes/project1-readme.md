@@ -55,4 +55,6 @@ The completed charger is fully functional, compact, and aesthetically integrated
 ## Notes
 
 - This project is intended for educational and prototyping purposes.  
-- Care should be taken when handling electronics and adhesive materials.  
+- Care should be taken when handling electronics and adhesive materials.
+- This project is intended for educational and prototyping purposes.  
+- Care should be taken when handling electronics and adhesive materials.

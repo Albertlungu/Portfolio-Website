@@ -62,11 +62,15 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 
     function loadSTLFromUrl(url) {
       if (!url) {
+        console.error('No URL provided for STL loading');
         return;
       }
-      const encodedUrl = encodeURI(url);
+      
+      // Ensure URL is absolute from project root
+      const absoluteUrl = url.startsWith('/') ? url : `/${url}`;
+      
       loader.load(
-        encodedUrl,
+        absoluteUrl,
         (geometry) => {
           clearCurrentMesh();
           const material = new THREE.MeshStandardMaterial({
@@ -84,9 +88,13 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
           scene.add(mesh);
           currentMesh = mesh;
         },
-        undefined,
+        (xhr) => {
+          // Loading progress
+          console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        },
         (error) => {
           console.error('Error loading STL:', error);
+          // You might want to add visual feedback here
         }
       );
     }

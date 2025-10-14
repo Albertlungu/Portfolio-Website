@@ -43,6 +43,7 @@
          <section class='project-display project-display--hidden'>
 
             <!-- confusing, but the left half of the right side? I guess? Basically where jpgs and stls and shit are displayed -->
+            <div class='project-github-link'></div>
             <div class='project-visuals'>
                 <!-- TOP part of the viewer (stl) -->
                  <div class='viewer-top'>
@@ -79,15 +80,16 @@
     <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/jsm/"
+        "three": "https://unpkg.com/three@0.159.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.159.0/examples/jsm/"
       }
     }
     </script>
 
     <!-- Your scripts as ES modules -->
-    <script type="module" src='../JS/stlviewer.js'></script>
-    <script src='../JS/loadreadme.js'></script>
+    <script type="module" src="../JS/stlviewer.js"></script>
+    <script type="module" src="../JS/loadreadme.js"></script>
+    <script type="module" src="../JS/projects-particles.js"></script>
     
 </body>
 </html>

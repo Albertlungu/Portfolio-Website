@@ -5,17 +5,17 @@
 }
 
 :root {
-    --color-bg-deep: #201010;
-    --color-bg-mid: #341812;
-    --color-bg-soft: #442318;
-    --color-text-primary: #fff0d9;
-    --color-text-muted: rgba(255, 240, 217, 0.75);
-    --color-accent-warm: #ffb262;
-    --color-accent-warm-strong: #ffc674;
-    --color-accent-blue: #58b8ff;
-    --color-panel-border: rgba(255, 193, 120, 0.26);
-    --color-shadow-strong: rgba(28, 14, 8, 0.55);
-    --color-shadow-soft: rgba(38, 18, 12, 0.32);
+    --color-bg-deep: #23100d;
+    --color-bg-mid: #3a1a14;
+    --color-bg-soft: #4d271a;
+    --color-text-primary: #fff4e4;
+    --color-text-muted: rgba(255, 236, 210, 0.75);
+    --color-accent-warm: #ffac4d;
+    --color-accent-warm-strong: #ffcb6a;
+    --color-accent-blue: #ffa96a;
+    --color-panel-border: rgba(255, 190, 120, 0.28);
+    --color-shadow-strong: rgba(32, 14, 6, 0.55);
+    --color-shadow-soft: rgba(52, 18, 8, 0.32);
 }
 
 body, html {
@@ -23,9 +23,9 @@ body, html {
     overflow-x: hidden;
     overscroll-behavior: none;
     background:
-        radial-gradient(circle at 18% 22%, rgba(255, 198, 120, 0.28), transparent 58%),
-        radial-gradient(circle at 78% 18%, rgba(255, 240, 210, 0.22), transparent 54%),
-        radial-gradient(circle at 68% 82%, rgba(88, 184, 255, 0.18), transparent 60%),
+        radial-gradient(circle at 18% 22%, rgba(255, 176, 110, 0.32), transparent 58%),
+        radial-gradient(circle at 78% 18%, rgba(255, 214, 168, 0.26), transparent 54%),
+        radial-gradient(circle at 68% 82%, rgba(255, 152, 96, 0.24), transparent 60%),
         linear-gradient(135deg, var(--color-bg-soft), var(--color-bg-deep));
     color: var(--color-text-primary);
     font-family: 'Ubuntu', sans-serif;
@@ -35,13 +35,22 @@ body, html {
     position: fixed;
     top:0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
 }
 
-main{
+main.hero {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+main.about-page,
+main.projects-page {
+    position: relative;
+    z-index: 1;
 }

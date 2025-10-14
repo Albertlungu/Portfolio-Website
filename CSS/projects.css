@@ -231,8 +231,9 @@ main.projects-page {
 .project-readme__header {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     color: rgba(255, 220, 168, 0.78);
 }
 
@@ -251,9 +252,88 @@ main.projects-page {
 
 .project-readme__content {
     color: rgba(255, 233, 199, 0.9);
-    line-height: 1.7;
+    line-height: 1.8;
     max-height: 520px;
     overflow-y: auto;
+    font-size: 0.98rem;
+}
+
+.project-readme__content h1 {
+    font-size: 1.8rem;
+    color: rgba(255, 206, 140, 1);
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(255, 198, 120, 0.3);
+}
+
+.project-readme__content h2 {
+    font-size: 1.4rem;
+    color: rgba(255, 220, 168, 0.95);
+    margin: 1.3rem 0 0.8rem;
+}
+
+.project-readme__content h3 {
+    font-size: 1.15rem;
+    color: rgba(255, 220, 168, 0.85);
+    margin: 1rem 0 0.6rem;
+}
+
+.project-readme__content p {
+    margin: 0.8rem 0;
+}
+
+.project-readme__content ul,
+.project-readme__content ol {
+    margin: 0.8rem 0;
+    padding-left: 1.8rem;
+}
+
+.project-readme__content li {
+    margin: 0.4rem 0;
+    line-height: 1.6;
+}
+
+.project-readme__content code {
+    background: rgba(20, 10, 5, 0.6);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: rgba(255, 177, 92, 0.95);
+}
+
+.project-readme__content pre {
+    background: rgba(20, 10, 5, 0.7);
+    padding: 1.2rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 198, 120, 0.2);
+    margin: 1rem 0;
+}
+
+.project-readme__content pre code {
+    background: none;
+    padding: 0;
+    color: rgba(255, 233, 199, 0.9);
+}
+
+.project-readme__content hr {
+    border: none;
+    border-top: 1px solid rgba(255, 198, 120, 0.25);
+    margin: 1.5rem 0;
+}
+
+.project-readme__content blockquote {
+    border-left: 3px solid rgba(255, 198, 120, 0.5);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: rgba(255, 233, 199, 0.8);
+    font-style: italic;
+}
+
+.project-readme__content strong {
+    color: rgba(255, 206, 140, 1);
+    font-weight: 600;
 }
 
 .project-readme__content::-webkit-scrollbar {
@@ -267,6 +347,124 @@ main.projects-page {
 
 .project-readme__content a {
     color: rgba(74, 168, 255, 0.92);
+}
+
+.project-readme__github-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 198, 120, 0.22), rgba(255, 140, 60, 0.16));
+    border: 1px solid rgba(255, 198, 120, 0.32);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.project-readme__github-link:hover {
+    background: linear-gradient(135deg, rgba(255, 198, 120, 0.32), rgba(74, 168, 255, 0.18));
+    border-color: rgba(255, 204, 138, 0.56);
+    transform: translateY(-2px);
+}
+
+.project-github-link {
+    margin-bottom: 1.5rem;
+}
+
+.project-github-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 198, 120, 0.22), rgba(255, 140, 60, 0.16));
+    border: 1px solid rgba(255, 198, 120, 0.32);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-github-link a:hover {
+    background: linear-gradient(135deg, rgba(255, 198, 120, 0.32), rgba(74, 168, 255, 0.18));
+    border-color: rgba(255, 204, 138, 0.56);
+    transform: translateY(-2px);
+    text-shadow: 0 1px 8px rgba(255, 198, 120, 0.4);
+}
+
+.project-github-link svg {
+    width: 22px;
+    height: 22px;
+    opacity: 0.9;
+}
+
+.schematic-viewer {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(30, 15, 8, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 198, 120, 0.28);
+    box-shadow: 0 8px 16px rgba(18, 9, 4, 0.3);
+}
+
+.schematic-viewer h3 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: rgba(255, 220, 168, 0.85);
+}
+
+.schematic-image {
+    width: 100%;
+    border-radius: 8px;
+    background: rgba(20, 10, 5, 0.6);
+    border: 1px solid rgba(255, 198, 120, 0.15);
+}
+
+.code-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(30, 15, 8, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 198, 120, 0.28);
+    box-shadow: 0 8px 16px rgba(18, 9, 4, 0.3);
+}
+
+.code-section h3 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: rgba(255, 220, 168, 0.85);
+}
+
+.code-section pre {
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.code-section pre::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.code-section pre::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(255, 204, 138, 0.75), rgba(255, 177, 92, 0.4));
+    border-radius: 999px;
+}
+
+.error-message {
+    padding: 1rem;
+    background: rgba(255, 80, 80, 0.15);
+    border: 1px solid rgba(255, 80, 80, 0.3);
+    border-radius: 8px;
+    color: rgba(255, 140, 140, 0.9);
+    font-size: 0.95rem;
 }
 
 @media (max-width: 1100px) {

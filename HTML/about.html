@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albert Lungu | About</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel='stylesheet' href='../CSS/about.css'>
+    <link rel='stylesheet' href='../CSS/background.css'>
+    <link rel='stylesheet' href='../CSS/text.css'>
+</head>
+<body>
+    <canvas id='bg'></canvas>
+
+    <main class='about-page'>
+        <header class='about-page__bar'>
+            <a class='home-link' href='../HTML/index.html' aria-label='Go home'>
+                <span class='home-link__icon'>
+                    <svg width='26' height='26' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                        <path d='M4 10.5L12 4L20 10.5V19C20 19.8284 19.3284 20.5 18.5 20.5H5.5C4.67157 20.5 4 19.8284 4 19V10.5Z' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/>
+                        <path d='M9 20.5V12H15V20.5' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/>
+                    </svg>
+                </span>
+            </a>
+        </header>
+
+        <div class='about-atmosphere' aria-hidden='true'>
+            <span class='about-orb about-orb--one'></span>
+            <span class='about-orb about-orb--two'></span>
+            <span class='about-orb about-orb--three'></span>
+        </div>
+
+        <div class='about-content'>
+            <section class='about-section about-hero-block' data-animate>
+                <p class='about-section__eyebrow'>Fullstack developer · Creative technologist</p>
+                <h1 class='about-section__headline'>Designing playful, polished experiences for the web.</h1>
+                <p class='about-section__lead'>From immersive hero scenes to thoughtful dashboards, I blend systems thinking with visual storytelling so every interface feels alive.</p>
+                <div class='about-section__chips' data-animate-item>
+                    <span class='about-chip'>Three.js experiments</span>
+                    <span class='about-chip'>TypeScript systems</span>
+                    <span class='about-chip'>Product storytelling</span>
+                    <span class='about-chip'>Design systems</span>
+                </div>
+                <div class='about-section__links' data-animate-item>
+                    <a class='about-intro-link' href='../HTML/projects_page.html'>View selected work</a>
+                    <a class='about-intro-link about-intro-link--alt' href='mailto:albert.lungu@example.com'>Let’s collaborate</a>
+                </div>
+            </section>
+
+            <section class='about-section about-section--narrative' data-animate>
+                <h2 class='about-section__title' data-animate-item>Always building, always learning</h2>
+                <p class='about-section__body' data-animate-item>Whether I’m sculpting interactive hero pills or crafting clean dashboards, I chase the sweet spot where engineering precision meets expressive design. I love nurturing ideas from sketch to production, pairing tight feedback loops with a sprinkle of delightful motion.</p>
+            </section>
+
+            <section class='about-section about-section--split' data-animate>
+                <article class='about-card' data-animate-item>
+                    <h3>Focus areas</h3>
+                    <ul class='about-list'>
+                        <li>Shipping immersive hero experiences with Three.js & GLSL.</li>
+                        <li>Refining reusable component systems in TypeScript + React.</li>
+                        <li>Designing learning projects that make CS approachable.</li>
+                    </ul>
+                </article>
+                <article class='about-card' data-animate-item>
+                    <h3>Strengths</h3>
+                    <ul class='about-list'>
+                        <li>Interactive front-end architecture and motion design.</li>
+                        <li>Fullstack prototyping across Node, Express, and databases.</li>
+                        <li>Human-centered storytelling that keeps users engaged.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section class='about-section about-section--split' data-animate>
+                <article class='about-card' data-animate-item>
+                    <h3>Beyond the IDE</h3>
+                    <ul class='about-list'>
+                        <li>Hosting hack nights and helping friends debug wild ideas.</li>
+                        <li>Documenting experiments for the Hack Club community.</li>
+                        <li>Sketching interfaces and moodboards before touching code.</li>
+                    </ul>
+                </article>
+                <article class='about-card' data-animate-item>
+                    <h3>Design lens</h3>
+                    <ul class='about-list about-list--tight'>
+                        <li>Every interface should hint at motion, depth, and possibility.</li>
+                        <li>Accessible color palettes and typography are non-negotiable.</li>
+                        <li>Micro-interactions make ambitious ideas feel approachable.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section class='about-section about-section--media' data-animate>
+                <article class='about-media about-media--stats' data-animate-item data-syntax>
+                    <h3>GitHub pulse</h3>
+                    <p class='about-media__subtitle'>Recent commits, experiments, and contributions keeping my craft sharp.</p>
+                    <div class='about-media__grid'>
+                        <img class='syntax-target' src='https://github-readme-stats.vercel.app/api?username=Albertlungu&show_icons=true&theme=tokyonight&hide_border=true&bg_color=1a0d0a&title_color=ffc678&icon_color=ffa85c&text_color=ffe9c7' alt='GitHub activity summary'>
+                        <img class='syntax-target' src='https://github-readme-streak-stats.herokuapp.com/?user=Albertlungu&theme=tokyonight&hide_border=true&background=1a0d0a&ring=ffc678&fire=ffa85c&currStreakLabel=ffe9c7' alt='GitHub streak chart'>
+                    </div>
+                </article>
+                <article class='about-media about-media--repos' data-animate-item data-syntax>
+                    <h3>Latest repositories</h3>
+                    <p class='about-media__subtitle'>Live feed of whatever I’m building next.</p>
+                    <div id='githubRepos' class='github-repos__list'>Loading repositories...</div>
+                </article>
+            </section>
+
+            <section class='about-section about-section--toolbox' data-animate>
+                <h3 data-animate-item>Toolbox</h3>
+                <p class='about-section__body' data-animate-item>I reach for modern, composable tools that keep iteration fast and joyful.</p>
+                <div class='code-cloud'>
+                    <span class='code-token' data-animate-item>TypeScript</span>
+                    <span class='code-token' data-animate-item>React</span>
+                    <span class='code-token' data-animate-item>Three.js</span>
+                    <span class='code-token' data-animate-item>Node.js</span>
+                    <span class='code-token' data-animate-item>Express</span>
+                    <span class='code-token' data-animate-item>PostgreSQL</span>
+                    <span class='code-token' data-animate-item>MongoDB</span>
+                    <span class='code-token' data-animate-item>Tailwind</span>
+                    <span class='code-token' data-animate-item>Figma</span>
+                    <span class='code-token' data-animate-item>Arduino</span>
+                </div>
+            </section>
+
+            <section class='about-section about-section--contact' data-animate>
+                <h3 data-animate-item>Let’s build something memorable</h3>
+                <p class='about-section__body' data-animate-item>I’m always excited to jam on ambitious ideas, collaborate with new teams, or help debug the impossible bug at 2&nbsp;am.</p>
+                <div class='about-contact-line' data-animate-item>
+                    <a href='https://github.com/Albertlungu' target='_blank' rel='noopener noreferrer'>GitHub</a>
+                    <a href='https://linkedin.com/in/albert-lungu' target='_blank' rel='noopener noreferrer'>LinkedIn</a>
+                    <a href='mailto:albert.lungu@example.com'>Email</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Three.js for background -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/jsm/"
+      }
+    }
+    </script>
+    <script type="module" src="../JS/background.js"></script>
+    <script type="module" src="../JS/about-particles.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script type="module" src="../JS/about-motion.js"></script>
+    <script src="../JS/github-repos.js"></script>
+</body>
+</html>
