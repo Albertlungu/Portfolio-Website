@@ -5,27 +5,16 @@ const initIntroGradient = () => {
     return;
   }
 
-  let startHue = 24;
-  let lastTime = performance.now();
+  const baseHue = 26;
+  const soften = 8;
 
-  const update = (now) => {
-    const delta = now - lastTime;
-    lastTime = now;
-
-    startHue = (startHue + delta * 0.005) % 360;
-
-    const hueSoft = (startHue + 10) % 360;
-    const hueMid = (startHue + 30) % 360;
-    const hueDeep = (startHue + 60) % 360;
-
-    root.style.setProperty('--color-bg-soft', `hsl(${hueSoft}, 42%, 28%)`);
-    root.style.setProperty('--color-bg-mid', `hsl(${hueMid}, 38%, 22%)`);
-    root.style.setProperty('--color-bg-deep', `hsl(${hueDeep}, 34%, 16%)`);
-
-    requestAnimationFrame(update);
+  const applyPalette = () => {
+    root.style.setProperty('--color-bg-soft', `hsl(${baseHue + soften}, 52%, 30%)`);
+    root.style.setProperty('--color-bg-mid', `hsl(${baseHue + soften / 2}, 46%, 24%)`);
+    root.style.setProperty('--color-bg-deep', `hsl(${baseHue}, 42%, 18%)`);
   };
 
-  requestAnimationFrame(update);
+  applyPalette();
 };
 
 if (document.readyState === 'loading') {
