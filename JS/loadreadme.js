@@ -50,26 +50,29 @@
       image: '#',
       isFolder: true,
     },
-    metronome: {
-      name: 'Pulse Metronome App',
-      description: 'iOS metronome app with AI-powered features',
-      github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/3-Pulse_Metronome_App',
-      language: 'Swift',
-      image: '#',
-    },
-    personalai: {
-      name: 'Personal AI',
-      description: 'Personal AI assistant project',
-      github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/4-Personal_AI',
-      language: 'Python',
-      image: '#',
-    },
     hackathons: {
       name: 'Hackathons',
-      description: 'Collection of hackathon projects',
+      description: 'Collection of hackathon projects from CS Portfolio',
       github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons',
       image: '#',
       isFolder: true,
+    },
+    daydream: {
+      name: 'Daydream 2025',
+      description: 'Hackathon project - The Sleepwalkers team submission',
+      github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/1-Daydream_2025',
+      language: 'Python',
+      image: '#',
+      fileTypes: ['Python scripts', 'Assets', 'README'],
+    },
+    nasaspaceapps: {
+      name: 'NASA Space Apps Challenge',
+      description: 'NASA Space Apps Challenge hackathon submission',
+      github: 'https://github.com/Albertlungu/NASA_Space_Apps',
+      githubAlt: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/2-NASA_Space_Apps',
+      language: 'TypeScript',
+      image: '#',
+      fileTypes: ['TypeScript', 'Data Analysis', 'Final Code'],
     },
     studytimer: {
       name: 'Study Timer',
@@ -103,13 +106,6 @@
       description: 'NASA Space Apps Challenge submission',
       github: 'https://github.com/Albertlungu/NASA_Space_Apps',
       language: 'TypeScript',
-      image: '#',
-    },
-    thesleepwalkers: {
-      name: 'The Sleepwalkers',
-      description: 'DAYDREAM - A collaborative project',
-      github: 'https://github.com/Albertlungu/The-Sleepwalkers',
-      language: 'Python',
       image: '#',
     },
     hcbmobile: {
@@ -199,19 +195,44 @@
         <div class="project-info">
           <h2>${project.name}</h2>
           ${project.description ? `<p class="project-description">${project.description}</p>` : ''}
-          <p class="project-note">This is a collection of projects. Select individual projects from the list on the left to view details.</p>
+          <p class="project-note">📁 This is a collection of projects. Select individual projects from the list on the left to view details.</p>
+          <div class="project-actions">
+            <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+              View Folder on GitHub
+            </a>
+          </div>
         </div>
       `;
       return;
     }
 
     if (!project.readme) {
+      const fileTypesHTML = project.fileTypes ? `
+        <div class="project-file-types">
+          <h3>📄 Contents:</h3>
+          <ul>
+            ${project.fileTypes.map(type => `<li>${type}</li>`).join('')}
+          </ul>
+        </div>
+      ` : '';
+
+      const githubAltHTML = project.githubAlt ? `
+        <p class="project-note">💡 Also available in CS Portfolio:
+          <a href="${project.githubAlt}" target="_blank" rel="noopener noreferrer">View in CS Portfolio</a>
+        </p>
+      ` : '';
+
       readmeContainer.innerHTML = `
         <div class="project-info">
           <h2>${project.name}</h2>
           ${project.description ? `<p class="project-description">${project.description}</p>` : ''}
           ${project.language ? `<p class="project-language"><strong>Language:</strong> ${project.language}</p>` : ''}
-          <p class="project-note">This project doesn't have a detailed README yet. Check the GitHub repository for more information.</p>
+          ${fileTypesHTML}
+          ${githubAltHTML}
+          <p class="project-note">For detailed code and files, visit the GitHub repository below.</p>
         </div>
       `;
       return;
