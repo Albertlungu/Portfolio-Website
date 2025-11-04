@@ -36,13 +36,6 @@
       arduino: '/Assets/Other/Project2/height_measurement_V1.ino',
       schematic: '/Assets/Images/Project2/schematic.png',
     },
-    pcpwebsite: {
-      name: 'PCP Website',
-      description: 'Website for the uOttawa Pre-College Program',
-      github: 'https://github.com/Albertlungu/PCP-Website',
-      language: 'JavaScript',
-      image: '#',
-    },
     csportfolio: {
       name: 'CS Portfolio',
       description: 'Computer Science Portfolio - Collection of hardware and software projects',
@@ -73,53 +66,6 @@
       language: 'TypeScript',
       image: '#',
       fileTypes: ['TypeScript', 'Data Analysis', 'Final Code'],
-    },
-    studytimer: {
-      name: 'Study Timer',
-      description: 'A productivity-focused study timer application',
-      github: 'https://github.com/Albertlungu/Study-Timer',
-      language: 'Python',
-      image: '#',
-    },
-    ashesofthefallen: {
-      name: 'Ashes of the Fallen Demo',
-      description: 'Game demo built with Godot Engine',
-      github: 'https://github.com/Albertlungu/ashes_of_the_fallen_demo',
-      language: 'GDScript',
-      image: '#',
-    },
-    sapphire: {
-      name: 'Sapphire',
-      description: 'The all-in-one Mac app that redefines the notch',
-      github: 'https://github.com/Albertlungu/Sapphire',
-      image: '#',
-    },
-    portfoliowebsite: {
-      name: 'Portfolio Website',
-      description: 'Personal portfolio website with 3D elements',
-      github: 'https://github.com/Albertlungu/Portfolio-Website',
-      language: 'JavaScript',
-      image: '#',
-    },
-    nasaspaceapps: {
-      name: 'NASA Space Apps',
-      description: 'NASA Space Apps Challenge submission',
-      github: 'https://github.com/Albertlungu/NASA_Space_Apps',
-      language: 'TypeScript',
-      image: '#',
-    },
-    hcbmobile: {
-      name: 'HCB Mobile',
-      description: 'A Mobile App Implementation of HCB',
-      github: 'https://github.com/Albertlungu/hcb-mobile',
-      image: '#',
-    },
-    fightcorruption: {
-      name: 'The Fight Against Corruption',
-      description: 'Web application addressing corruption awareness',
-      github: 'https://github.com/Albertlungu/The-Fight-Against-Corruption',
-      language: 'HTML',
-      image: '#',
     },
   };
 
