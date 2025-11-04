@@ -141,7 +141,7 @@
         <div class="project-info">
           <h2>${project.name}</h2>
           ${project.description ? `<p class="project-description">${project.description}</p>` : ''}
-          <p class="project-note">📁 This is a collection of projects. Select individual projects from the list on the left to view details.</p>
+          <p class="project-note">This is a collection of projects. Select individual projects from the list on the left to view details.</p>
           <div class="project-actions">
             <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -366,15 +366,42 @@
     }
   }
 
+  function handleFolderToggle(event) {
+    const folderItem = event.currentTarget;
+    const folderId = folderItem.dataset.folder;
+    const folderContent = document.querySelector(`[data-folder-content="${folderId}"]`);
+    const toggle = folderItem.querySelector('.folder-toggle');
+
+    if (folderContent) {
+      const isOpen = folderContent.classList.contains('open');
+
+      if (isOpen) {
+        folderContent.classList.remove('open');
+        if (toggle) toggle.textContent = '▶';
+      } else {
+        folderContent.classList.add('open');
+        if (toggle) toggle.textContent = '▼';
+      }
+    }
+
+    // Stop propagation to prevent triggering project display
+    event.stopPropagation();
+  }
+
   function init() {
     if (!projectItems.length) {
       return;
     }
 
     projectItems.forEach((item) => {
-      item.addEventListener('click', handleProjectClick);
-      item.addEventListener('mouseenter', handleProjectMouseEnter);
-      item.addEventListener('mouseleave', handleProjectMouseLeave);
+      // Check if this is a folder item
+      if (item.dataset.folder) {
+        item.addEventListener('click', handleFolderToggle);
+      } else {
+        item.addEventListener('click', handleProjectClick);
+        item.addEventListener('mouseenter', handleProjectMouseEnter);
+        item.addEventListener('mouseleave', handleProjectMouseLeave);
+      }
     });
 
     if (modelSelector) {
@@ -384,6 +411,11 @@
     // Start with display hidden
     projectDisplay?.classList.add('project-display--hidden');
     projectDisplay?.classList.remove('project-display--revealed');
+
+    // Hide all folder contents by default
+    document.querySelectorAll('[data-folder-content]').forEach(folder => {
+      folder.classList.remove('open');
+    });
   }
 
   if (document.readyState === 'loading') {

@@ -34,12 +34,16 @@
         <section class='project-list'>
             <h1 class='project-list__title'>Projects</h1>
             <ul class='project-list__items'>
-                <li class='project-list__item project-list__item--folder' data-project-key='csportfolio'>📁 CS Portfolio</li>
-                <ul class='project-list__subitems'>
+                <li class='project-list__item project-list__item--folder' data-project-key='csportfolio' data-folder='csportfolio'>
+                    <span class='folder-toggle'>▶</span> CS Portfolio
+                </li>
+                <ul class='project-list__subitems' data-folder-content='csportfolio'>
                     <li class='project-list__item project-list__item--sub' data-project-key='magsafe'>DIY MagSafe Charger</li>
                     <li class='project-list__item project-list__item--sub' data-project-key='height'>Height Measurement Device</li>
-                    <li class='project-list__item project-list__item--sub project-list__item--folder' data-project-key='hackathons'>📁 Hackathons</li>
-                    <ul class='project-list__subitems project-list__subitems--nested'>
+                    <li class='project-list__item project-list__item--sub project-list__item--folder' data-project-key='hackathons' data-folder='hackathons'>
+                        <span class='folder-toggle'>▶</span> Hackathons
+                    </li>
+                    <ul class='project-list__subitems project-list__subitems--nested' data-folder-content='hackathons'>
                         <li class='project-list__item project-list__item--sub' data-project-key='daydream'>Daydream 2025</li>
                         <li class='project-list__item project-list__item--sub' data-project-key='nasaspaceapps'>NASA Space Apps</li>
                     </ul>
