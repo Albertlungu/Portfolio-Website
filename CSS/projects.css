@@ -537,6 +537,184 @@ main.projects-page {
     padding: 0.55rem 0.45rem 0.55rem 0.2rem;
 }
 
+/* Teammates section */
+.teammates-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(74, 168, 255, 0.08);
+    border-radius: 12px;
+    border: 1px solid rgba(74, 168, 255, 0.25);
+}
+
+.teammates-section h3 {
+    margin: 0 0 0.8rem;
+    color: rgba(255, 220, 168, 0.95);
+}
+
+.teammates-list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.teammate-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: rgba(255, 198, 120, 0.12);
+    border: 1px solid rgba(255, 198, 120, 0.3);
+    border-radius: 8px;
+    color: rgba(255, 233, 199, 0.9);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.teammate-link:hover {
+    background: rgba(255, 198, 120, 0.22);
+    border-color: rgba(255, 204, 138, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Clone section */
+.clone-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(30, 15, 8, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 198, 120, 0.28);
+}
+
+.clone-section h3 {
+    margin: 0 0 1rem;
+    color: rgba(255, 220, 168, 0.85);
+}
+
+.clone-command {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: rgba(20, 10, 5, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 198, 120, 0.15);
+}
+
+.clone-command code {
+    flex: 1;
+    color: rgba(74, 168, 255, 0.92);
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.copy-btn {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, rgba(255, 198, 120, 0.22), rgba(255, 140, 60, 0.16));
+    border: 1px solid rgba(255, 198, 120, 0.32);
+    border-radius: 6px;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: linear-gradient(135deg, rgba(255, 198, 120, 0.32), rgba(74, 168, 255, 0.18));
+    transform: translateY(-1px);
+}
+
+/* Start commands section */
+.start-commands-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(30, 15, 8, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 198, 120, 0.28);
+}
+
+.start-commands-section h3 {
+    margin: 0 0 1rem;
+    color: rgba(255, 220, 168, 0.85);
+}
+
+.start-commands-list {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: rgba(255, 233, 199, 0.85);
+}
+
+.start-commands-list li {
+    margin-bottom: 0.5rem;
+}
+
+.start-commands-list code {
+    padding: 0.3rem 0.6rem;
+    background: rgba(20, 10, 5, 0.6);
+    border-radius: 4px;
+    color: rgba(74, 168, 255, 0.92);
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+/* Itch.io section */
+.itch-io-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 140, 60, 0.12);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 140, 60, 0.35);
+    text-align: center;
+}
+
+.itch-io-section h3 {
+    margin: 0 0 1rem;
+    color: rgba(255, 220, 168, 0.95);
+}
+
+.itch-io-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.6rem;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.itch-io-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.45);
+}
+
+/* Hover tooltip for CS Portfolio */
+.project-list__item--folder[data-folder="csportfolio"] {
+    position: relative;
+}
+
+.project-list__item--folder[data-folder="csportfolio"]::after {
+    content: "Click to expand projects";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 1rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 198, 120, 0.95);
+    color: rgba(30, 15, 8, 0.95);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.project-list__item--folder[data-folder="csportfolio"]:hover::after {
+    opacity: 1;
+}
+
 @media (max-width: 720px) {
     .viewer-controls {
         flex-direction: column;
@@ -550,5 +728,9 @@ main.projects-page {
 
     .project-readme__content {
         max-height: none;
+    }
+
+    .project-list__item--folder[data-folder="csportfolio"]::after {
+        display: none;
     }
 }

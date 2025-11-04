@@ -52,20 +52,83 @@
     },
     daydream: {
       name: 'Daydream 2025',
-      description: 'Hackathon project - The Sleepwalkers team submission',
+      description: 'Hackathon project submissions - Ottawa and Global',
       github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/1-Daydream_2025',
-      language: 'Python',
       image: '#',
-      fileTypes: ['Python scripts', 'Assets', 'README'],
+      isFolder: true,
+    },
+    daydreamott: {
+      name: 'Daydream Ottawa',
+      description: 'Ottawa hackathon submission',
+      github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/1-Daydream_2025',
+      readme: 'https://raw.githubusercontent.com/Albertlungu/CS-Portfolio/main/Hackathons/1-Daydream_2025/README.md',
+      language: 'Python',
+      image: '/Assets/Images/daydream_ottawa.png',
+      cloneUrl: 'git clone https://github.com/Albertlungu/CS-Portfolio.git',
+      teammates: [
+        { name: 'bsnack', url: 'https://github.com/bsnack' },
+        { name: 'EasonYang7', url: 'https://github.com/EasonYang7' }
+      ],
+    },
+    daydreamglobal: {
+      name: 'Daydream Global',
+      description: 'A calm lil RPG 3D Indie game for DAYDREAM GLOBAL',
+      github: 'https://github.com/Albertlungu/ashes_of_the_fallen_demo',
+      readme: 'https://raw.githubusercontent.com/Albertlungu/ashes_of_the_fallen_demo/main/README.md',
+      language: 'GDScript',
+      image: '/Assets/Images/daydream_global.png',
+      itchIo: 'https://albertlungu.itch.io/ashes-of-the-fallen',
+      executable: '/Users/albertlungu/Documents/ashes-of-the-fallen-demo/Ashes of The Fallen.exe',
+      customReadme: `# ashes_of_the_fallen_demo
+
+A calm lil RPG 3D Indie game for DAYDREAM GLOBALLLLLLL. Made with Godot editor using some files from the internet (i should prolly cite my sources😰). Don't worry about the code, might've vibecoded some of it... BUT IT WORKS (at least this part for now)!
+
+## What is it?
+Basically you just go with the flow of the game. There's no book yet, but I'm prolly gonna add some sort of manual that tells the user all controls and stuff like that. For now, refer to this readme.md for keybinds and stuff.
+
+There's 4 parts to it total:
+
+**Challenge 1: Trial of Wit**
+- You have to solve a maze that looks too much like the backrooms
+- You get a gem that lets you slow down time of enemy by 2x (hopefully it works)
+- Sacrifice 5% of max health per use
+
+**Challenge 2: Trial of Strength:**
+- You needa cook some sort of alien monster
+- Not sure what you're gonna get as a reward yet
+
+**Challenge 3:** I HAVE NO CLUE WHAT TO DO FOR THIS LAST ONE
+
+**Challenge 4: The Ultimate Sacrifice**
+- So basically at the end you js kill urself
+- Yeah all that work js to murder your own character
+- YOU SAVE THE WORLD THOUGH!!!
+
+## How to run?
+Bro its not that deep its a godot project on itch.io
+
+## Keybinds:
+- **WASD**: Movement
+- **Space Bar**: Jump
+- **Ctrl**: Toggle sprint
+- **E**: Pick up item
+- **LMB**: Attack
+- **RMB**: Block`,
     },
     nasaspaceapps: {
       name: 'NASA Space Apps Challenge',
       description: 'NASA Space Apps Challenge hackathon submission',
       github: 'https://github.com/Albertlungu/NASA_Space_Apps',
       githubAlt: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/2-NASA_Space_Apps',
+      readme: 'https://raw.githubusercontent.com/Albertlungu/NASA_Space_Apps/main/README.md',
       language: 'TypeScript',
       image: '#',
-      fileTypes: ['TypeScript', 'Data Analysis', 'Final Code'],
+      cloneUrl: 'git clone https://github.com/Albertlungu/NASA_Space_Apps.git',
+      startCommands: [
+        'cd NASA_Space_Apps',
+        'npm install',
+        'npm start'
+      ],
     },
   };
 
@@ -155,6 +218,21 @@
       return;
     }
 
+    // Handle custom README for Daydream Global
+    if (project.customReadme) {
+      const itchIoHTML = project.itchIo ? `
+        <div class="itch-io-section">
+          <h3>Play on itch.io</h3>
+          <a href="${project.itchIo}" target="_blank" rel="noopener noreferrer" class="itch-io-btn">
+            Play Ashes of the Fallen
+          </a>
+        </div>
+      ` : '';
+
+      readmeContainer.innerHTML = marked.parse(project.customReadme) + itchIoHTML;
+      return;
+    }
+
     if (!project.readme) {
       const fileTypesHTML = project.fileTypes ? `
         <div class="project-file-types">
@@ -186,8 +264,9 @@
 
     readmeContainer.textContent = 'Loading README…';
 
-    // Ensure path starts with /
-    const readmePath = project.readme.startsWith('/') ? project.readme : `/${project.readme}`;
+    // Determine if this is a remote or local README
+    const isRemoteReadme = project.readme.startsWith('http');
+    const readmePath = isRemoteReadme ? project.readme : (project.readme.startsWith('/') ? project.readme : `/${project.readme}`);
 
     fetch(readmePath)
       .then(response => {
@@ -201,6 +280,54 @@
           throw new Error('Markdown parser not available');
         }
         readmeContainer.innerHTML = marked.parse(markdown);
+
+        // Add teammates section for Daydream Ottawa
+        if (project.teammates && project.teammates.length > 0) {
+          const teammatesHTML = `
+            <div class="teammates-section">
+              <h3>🎉 Huge Thank You to My Amazing Teammates!</h3>
+              <p>This project wouldn't have been possible without our incredible collaboration:</p>
+              <div class="teammates-list">
+                ${project.teammates.map(teammate => `
+                  <a href="${teammate.url}" target="_blank" rel="noopener noreferrer" class="teammate-link">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    ${teammate.name}
+                  </a>
+                `).join('')}
+              </div>
+            </div>
+          `;
+          readmeContainer.innerHTML += teammatesHTML;
+        }
+
+        // Add clone command section
+        if (project.cloneUrl) {
+          const cloneHTML = `
+            <div class="clone-section">
+              <h3>Clone this repository</h3>
+              <div class="clone-command">
+                <code>${project.cloneUrl}</code>
+                <button onclick="navigator.clipboard.writeText('${project.cloneUrl}')" class="copy-btn">Copy</button>
+              </div>
+            </div>
+          `;
+          readmeContainer.innerHTML += cloneHTML;
+        }
+
+        // Add start commands section for NASA Space Apps
+        if (project.startCommands && project.startCommands.length > 0) {
+          const startCommandsHTML = `
+            <div class="start-commands-section">
+              <h3>Getting Started</h3>
+              <ol class="start-commands-list">
+                ${project.startCommands.map(cmd => `<li><code>${cmd}</code></li>`).join('')}
+              </ol>
+            </div>
+          `;
+          readmeContainer.innerHTML += startCommandsHTML;
+        }
 
         // Add schematic viewer after README loads
         if (project.schematic) {
