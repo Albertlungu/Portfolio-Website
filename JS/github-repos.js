@@ -7,7 +7,7 @@
     
     async function fetchGitHubRepos() {
         try {
-            const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+            const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=12`);
             
             if (!response.ok) {
                 throw new Error('Failed to fetch repositories');

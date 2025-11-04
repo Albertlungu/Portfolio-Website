@@ -24,32 +24,31 @@
   sections.forEach((section) => {
     const items = section.querySelectorAll('[data-animate-item]');
 
-    gsap.set(section, { opacity: 0, y: 32 });
-    items.forEach((item, index) => {
-      const direction = index % 2 === 0 ? -48 : 48;
-      gsap.set(item, { opacity: 0, x: direction, y: 0 });
+    gsap.set(section, { opacity: 0, y: 16 });
+    items.forEach((item) => {
+      gsap.set(item, { opacity: 0, y: 12 });
     });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 82%',
+        start: 'top 85%',
         once: true,
       },
     })
       .to(section, {
         opacity: 1,
         y: 0,
-        duration: 0.6,
+        duration: 0.4,
         ease: 'power2.out',
       })
       .to(items, {
         opacity: 1,
-        x: 0,
-        duration: 0.5,
-        ease: 'power2.out',
-        stagger: 0.08,
-      }, '-=0.38');
+        y: 0,
+        duration: 0.35,
+        ease: 'back.out(1.4)',
+        stagger: 0.05,
+      }, '-=0.2');
   });
 
   document.querySelectorAll('[data-syntax]').forEach((group) => {
@@ -83,28 +82,22 @@
     group.addEventListener('focusout', hoverOut);
   });
 
-  const pluckTargets = document.querySelectorAll('.about-section, .about-card, .about-media, .code-token');
+  const pluckTargets = document.querySelectorAll('.about-card, .code-token');
 
   pluckTargets.forEach((target) => {
-    const hoverTl = gsap.timeline({ paused: true });
-
-    hoverTl.to(target, {
-      keyframes: [
-        { scale: 1.05, rotation: 0.6, duration: 0.18, ease: 'power3.out' },
-        { scale: 1.02, rotation: -0.3, duration: 0.12, ease: 'power3.inOut' },
-      ],
-    });
-
     const playPluck = () => {
-      hoverTl.restart();
+      gsap.to(target, {
+        scale: 1.03,
+        duration: 0.15,
+        ease: 'back.out(2)',
+      });
     };
 
     const resetPluck = () => {
       gsap.to(target, {
         scale: 1,
-        rotation: 0,
-        duration: 0.22,
-        ease: 'elastic.out(1, 0.6)',
+        duration: 0.2,
+        ease: 'power2.out',
       });
     };
 

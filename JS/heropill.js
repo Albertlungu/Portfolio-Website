@@ -2,10 +2,10 @@ import * as THREE from 'three';
 
 const FACE_COUNT = 3;
 const ROTATION_PER_FACE = (Math.PI * 2) / FACE_COUNT;
-const BASE_TILT_X = THREE.MathUtils.degToRad(14);
-const IDLE_ROTATE_MAX = 0.12;
-const IDLE_TILT_MAX = THREE.MathUtils.degToRad(2.4);
-const IDLE_BOB_MAX = 0.08;
+const BASE_TILT_X = THREE.MathUtils.degToRad(0);
+const IDLE_ROTATE_MAX = 0.06;
+const IDLE_TILT_MAX = THREE.MathUtils.degToRad(1.2);
+const IDLE_BOB_MAX = 0.04;
 
 const overlayFaces = Array.from(document.querySelectorAll('.pill-overlay__face'));
 const heroPillSection = document.getElementById('heroPill');
@@ -35,7 +35,7 @@ function initScene(canvas) {
   clock = new THREE.Clock();
 
   camera = new THREE.PerspectiveCamera(35, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-  camera.position.set(0, 0, 12);
+  camera.position.set(0, 0, 14);
 
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
@@ -64,8 +64,8 @@ function initScene(canvas) {
 }
 
 function buildCapsule() {
-  const capsuleRadius = 1.8;
-  const capsuleLength = 6.2;
+  const capsuleRadius = 1.4;
+  const capsuleLength = 7.5;
 
   const bodyGeometry = new THREE.CapsuleGeometry(capsuleRadius, capsuleLength, 28, 36);
   const bodyMaterial = new THREE.MeshStandardMaterial({
@@ -75,6 +75,7 @@ function buildCapsule() {
     envMapIntensity: 0.6,
   });
   const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+  bodyMesh.rotation.z = Math.PI / 2;
   capsuleGroup.add(bodyMesh);
 
   const edgeGeometry = new THREE.RingGeometry(capsuleRadius - 0.05, capsuleRadius + 0.05, 48);
@@ -83,15 +84,15 @@ function buildCapsule() {
   const capOffsets = [-(capsuleLength / 2), capsuleLength / 2];
   capOffsets.forEach((offset) => {
     const edge = new THREE.Mesh(edgeGeometry, edgeMaterial);
-    edge.rotation.y = Math.PI / 2;
-    edge.position.x = offset + Math.sign(offset) * capsuleRadius;
+    edge.rotation.x = Math.PI / 2;
+    edge.position.y = offset + Math.sign(offset) * capsuleRadius;
     capsuleGroup.add(edge);
   });
 
-  const glowGeometry = new THREE.SphereGeometry(0.5, 18, 18);
+  const glowGeometry = new THREE.SphereGeometry(0.4, 18, 18);
   const glowMaterial = new THREE.MeshBasicMaterial({ color: 0xfff4dd, transparent: true, opacity: 0.22 });
   const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-  glow.position.set(2.2, 0.5, 0.6);
+  glow.position.set(0, 2.8, 0.6);
   capsuleGroup.add(glow);
 }
 
@@ -106,8 +107,8 @@ function animate() {
   const idleTilt = Math.sin(elapsed * 0.45) * IDLE_TILT_MAX * focusFactor;
   const idleBob = Math.sin(elapsed * 0.6) * IDLE_BOB_MAX * focusFactor;
 
-  capsuleGroup.rotation.y = currentRotation + idleRotate;
-  capsuleGroup.rotation.x = BASE_TILT_X + idleTilt;
+  capsuleGroup.rotation.x = currentRotation + idleRotate;
+  capsuleGroup.rotation.y = BASE_TILT_X + idleTilt;
   capsuleGroup.rotation.z = idleTilt * 0.4;
   capsuleGroup.position.y = idleBob;
 

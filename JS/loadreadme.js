@@ -34,7 +34,75 @@
         case: '/Assets/STL/Project2/Height Measurement 3D design.stl'
       },
       arduino: '/Assets/Other/Project2/height_measurement_V1.ino',
-      schematic: '/Assets/Images/Project2/schematic.png', // Add exported schematic image path
+      schematic: '/Assets/Images/Project2/schematic.png',
+    },
+    pcpwebsite: {
+      name: 'PCP Website',
+      description: 'Website for the uOttawa Pre-College Program',
+      github: 'https://github.com/Albertlungu/PCP-Website',
+      language: 'JavaScript',
+      image: '#',
+    },
+    csportfolio: {
+      name: 'CS Portfolio',
+      description: 'Computer Science Portfolio iOS App',
+      github: 'https://github.com/Albertlungu/CS-Portfolio',
+      language: 'Swift',
+      image: '#',
+    },
+    studytimer: {
+      name: 'Study Timer',
+      description: 'A productivity-focused study timer application',
+      github: 'https://github.com/Albertlungu/Study-Timer',
+      language: 'Python',
+      image: '#',
+    },
+    ashesofthefallen: {
+      name: 'Ashes of the Fallen Demo',
+      description: 'Game demo built with Godot Engine',
+      github: 'https://github.com/Albertlungu/ashes_of_the_fallen_demo',
+      language: 'GDScript',
+      image: '#',
+    },
+    sapphire: {
+      name: 'Sapphire',
+      description: 'The all-in-one Mac app that redefines the notch',
+      github: 'https://github.com/Albertlungu/Sapphire',
+      image: '#',
+    },
+    portfoliowebsite: {
+      name: 'Portfolio Website',
+      description: 'Personal portfolio website with 3D elements',
+      github: 'https://github.com/Albertlungu/Portfolio-Website',
+      language: 'JavaScript',
+      image: '#',
+    },
+    nasaspaceapps: {
+      name: 'NASA Space Apps',
+      description: 'NASA Space Apps Challenge submission',
+      github: 'https://github.com/Albertlungu/NASA_Space_Apps',
+      language: 'TypeScript',
+      image: '#',
+    },
+    thesleepwalkers: {
+      name: 'The Sleepwalkers',
+      description: 'DAYDREAM - A collaborative project',
+      github: 'https://github.com/Albertlungu/The-Sleepwalkers',
+      language: 'Python',
+      image: '#',
+    },
+    hcbmobile: {
+      name: 'HCB Mobile',
+      description: 'A Mobile App Implementation of HCB',
+      github: 'https://github.com/Albertlungu/hcb-mobile',
+      image: '#',
+    },
+    fightcorruption: {
+      name: 'The Fight Against Corruption',
+      description: 'Web application addressing corruption awareness',
+      github: 'https://github.com/Albertlungu/The-Fight-Against-Corruption',
+      language: 'HTML',
+      image: '#',
     },
   };
 
@@ -88,13 +156,26 @@
   }
 
   function loadProjectReadme(project) {
-    if (!readmeContainer || !project || !project.readme) {
+    if (!readmeContainer || !project) {
       console.error('Missing required elements for README loading');
       return;
     }
 
-    readmeContainer.textContent = 'Loading README…';
     projectNameLabel.textContent = project.name;
+
+    if (!project.readme) {
+      readmeContainer.innerHTML = `
+        <div class="project-info">
+          <h2>${project.name}</h2>
+          ${project.description ? `<p class="project-description">${project.description}</p>` : ''}
+          ${project.language ? `<p class="project-language"><strong>Language:</strong> ${project.language}</p>` : ''}
+          <p class="project-note">This project doesn't have a detailed README yet. Check the GitHub repository for more information.</p>
+        </div>
+      `;
+      return;
+    }
+
+    readmeContainer.textContent = 'Loading README…';
 
     // Ensure path starts with /
     const readmePath = project.readme.startsWith('/') ? project.readme : `/${project.readme}`;
