@@ -34,7 +34,6 @@
         case: '/Assets/STL/Project2/Height Measurement 3D design.stl'
       },
       arduino: '/Assets/Other/Project2/height_measurement_V1.ino',
-      schematic: '/Assets/Images/Project2/schematic.png',
     },
     csportfolio: {
       name: 'CS Portfolio',
