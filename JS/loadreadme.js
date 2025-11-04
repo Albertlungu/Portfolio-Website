@@ -63,7 +63,6 @@
       github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/1-Daydream_2025',
       readme: 'https://raw.githubusercontent.com/Albertlungu/CS-Portfolio/main/Hackathons/1-Daydream_2025/README.md',
       language: 'Python',
-      image: '/Assets/Images/daydream_ottawa.png',
       cloneUrl: 'git clone https://github.com/Albertlungu/CS-Portfolio.git',
       teammates: [
         { name: 'bsnack', url: 'https://github.com/bsnack' },
@@ -76,7 +75,6 @@
       github: 'https://github.com/Albertlungu/ashes_of_the_fallen_demo',
       readme: 'https://raw.githubusercontent.com/Albertlungu/ashes_of_the_fallen_demo/main/README.md',
       language: 'GDScript',
-      image: '/Assets/Images/daydream_global.png',
       itchIo: 'https://albertlungu.itch.io/ashes-of-the-fallen',
       executable: '/Users/albertlungu/Documents/ashes-of-the-fallen-demo/Ashes of The Fallen.exe',
       customReadme: `# ashes_of_the_fallen_demo
@@ -122,7 +120,6 @@ Bro its not that deep its a godot project on itch.io
       githubAlt: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/2-NASA_Space_Apps',
       readme: 'https://raw.githubusercontent.com/Albertlungu/NASA_Space_Apps/main/README.md',
       language: 'TypeScript',
-      image: '#',
       cloneUrl: 'git clone https://github.com/Albertlungu/NASA_Space_Apps.git',
       startCommands: [
         'cd NASA_Space_Apps',
@@ -186,8 +183,16 @@ Bro its not that deep its a godot project on itch.io
     if (!projectImage || !project) {
       return;
     }
-    projectImage.src = project.image;
-    projectImage.alt = `${project.name} preview`;
+
+    const viewerBottom = document.querySelector('.viewer-bottom');
+
+    if (project.image && project.image !== '#') {
+      projectImage.src = project.image;
+      projectImage.alt = `${project.name} preview`;
+      if (viewerBottom) viewerBottom.style.display = 'block';
+    } else {
+      if (viewerBottom) viewerBottom.style.display = 'none';
+    }
   }
 
   function loadProjectReadme(project) {
@@ -420,6 +425,16 @@ Bro its not that deep its a godot project on itch.io
                 </a>`;
       } else {
         githubLinkContainer.innerHTML = '';
+      }
+    }
+
+    // Show/hide STL viewer based on whether project has models
+    const viewerTop = document.querySelector('.viewer-top');
+    if (viewerTop) {
+      if (project.models && Object.keys(project.models).length > 0) {
+        viewerTop.style.display = 'flex';
+      } else {
+        viewerTop.style.display = 'none';
       }
     }
 
