@@ -45,10 +45,31 @@
     },
     csportfolio: {
       name: 'CS Portfolio',
-      description: 'Computer Science Portfolio iOS App',
+      description: 'Computer Science Portfolio - Collection of hardware and software projects',
       github: 'https://github.com/Albertlungu/CS-Portfolio',
+      image: '#',
+      isFolder: true,
+    },
+    metronome: {
+      name: 'Pulse Metronome App',
+      description: 'iOS metronome app with AI-powered features',
+      github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/3-Pulse_Metronome_App',
       language: 'Swift',
       image: '#',
+    },
+    personalai: {
+      name: 'Personal AI',
+      description: 'Personal AI assistant project',
+      github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/4-Personal_AI',
+      language: 'Python',
+      image: '#',
+    },
+    hackathons: {
+      name: 'Hackathons',
+      description: 'Collection of hackathon projects',
+      github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons',
+      image: '#',
+      isFolder: true,
     },
     studytimer: {
       name: 'Study Timer',
@@ -125,12 +146,21 @@
     const entries = Object.entries(project.models || {});
     if (!entries.length) {
       const placeholder = document.createElement('option');
-      placeholder.textContent = 'No models available';
+      placeholder.textContent = 'No 3D models available';
       placeholder.disabled = true;
       placeholder.selected = true;
       modelSelector.appendChild(placeholder);
+
+      // Hide the viewer controls if no models
+      const viewerControls = document.querySelector('.viewer-controls');
+      if (viewerControls) viewerControls.style.display = 'none';
+
       return null;
     }
+
+    // Show viewer controls if models exist
+    const viewerControls = document.querySelector('.viewer-controls');
+    if (viewerControls) viewerControls.style.display = 'flex';
 
     let firstUrl = null;
     entries.forEach(([key, url], index) => {
@@ -162,6 +192,18 @@
     }
 
     projectNameLabel.textContent = project.name;
+
+    // Handle folder items
+    if (project.isFolder) {
+      readmeContainer.innerHTML = `
+        <div class="project-info">
+          <h2>${project.name}</h2>
+          ${project.description ? `<p class="project-description">${project.description}</p>` : ''}
+          <p class="project-note">This is a collection of projects. Select individual projects from the list on the left to view details.</p>
+        </div>
+      `;
+      return;
+    }
 
     if (!project.readme) {
       readmeContainer.innerHTML = `
