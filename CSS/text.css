@@ -86,6 +86,10 @@ p {
     display: block;
 }
 
+/* OVERLAY PANELS - Currently disabled in favor of 3D text on pill surface */
+/* Kept commented for potential future use */
+
+/*
 .pill-overlay {
     position: absolute;
     inset: 0;
@@ -147,6 +151,7 @@ p {
     transform: translate3d(0, 0, 0) scale(1);
     pointer-events: auto;
 }
+*/
 
 .pill-shadow {
     position: absolute;
