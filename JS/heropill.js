@@ -23,7 +23,6 @@ let targetRotation = 0;
 let currentRotation = 0;
 let rotationVelocity = 0;
 let animationFrame;
-let scrollLock = false;
 let interacted = false;
 let clock;
 let rerenderQueued = false;
@@ -32,6 +31,8 @@ let loadedFont = null;
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
 let hoveredButton = null;
+let isScrolling = false;
+let scrollTimeout = null;
 
 const overlayState = {
   index: 0,
@@ -281,14 +282,26 @@ function animate() {
 
   const elapsed = clock?.getElapsedTime() ?? 0;
 
-  // Spring physics with bounce
-  const stiffness = 0.15; // Spring stiffness
-  const damping = 0.7; // Damping factor (lower = more bounce)
-  const delta = targetRotation - currentRotation;
-  const spring = delta * stiffness;
-  rotationVelocity += spring;
-  rotationVelocity *= damping;
-  currentRotation += rotationVelocity;
+  // Two-state rotation: smooth while scrolling, snap with bounce when stopped
+  if (isScrolling) {
+    // Smooth follow during active scrolling - no bounce
+    currentRotation = THREE.MathUtils.lerp(currentRotation, targetRotation, 0.2);
+    rotationVelocity = 0; // Reset velocity during scrolling
+  } else {
+    // Snap to nearest notch with spring bounce when not scrolling
+    const nearestNotch = Math.round(targetRotation / ROTATION_PER_FACE) * ROTATION_PER_FACE;
+    const stiffness = 0.15;
+    const damping = 0.7;
+    const delta = nearestNotch - currentRotation;
+    const spring = delta * stiffness;
+    rotationVelocity += spring;
+    rotationVelocity *= damping;
+    currentRotation += rotationVelocity;
+
+    // Update overlay index based on nearest notch
+    overlayState.index = Math.round(nearestNotch / ROTATION_PER_FACE) % FACE_COUNT;
+    if (overlayState.index < 0) overlayState.index += FACE_COUNT;
+  }
   const focusFactor = heroInFocus() ? 1 : 0.3;
   const idleRotate = Math.sin(elapsed * 0.35) * IDLE_ROTATE_MAX * focusFactor;
   const idleTilt = Math.sin(elapsed * 0.45) * IDLE_TILT_MAX * focusFactor;
@@ -393,18 +406,29 @@ function handleResize() {
 
 function bindInteractions(canvas) {
   const onWheel = (event) => {
-    if (scrollLock || !heroInFocus()) {
+    if (!heroInFocus()) {
       return;
     }
     const { deltaY } = event;
     if (Math.abs(deltaY) < 18) {
       return;
     }
-    scrollLock = true;
-    rotatePill(deltaY > 0 ? -1 : 1); // Reversed scroll direction
-    setTimeout(() => {
-      scrollLock = false;
-    }, 450); // Reduced from 800ms to 450ms for snappier scroll
+
+    // Continuously update target rotation for smooth scrolling
+    const scrollSensitivity = 0.01;
+    targetRotation += deltaY * scrollSensitivity;
+
+    // Mark as scrolling
+    isScrolling = true;
+
+    // Clear existing timeout and set new one
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+    }, 150);
+
     event.preventDefault();
   };
 
