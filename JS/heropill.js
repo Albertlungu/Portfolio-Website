@@ -107,11 +107,11 @@ function createTextMesh(text, size = 0.3) {
   const centerOffset = -0.5 * (textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x);
 
   const textMaterial = new THREE.MeshStandardMaterial({
-    color: 0xD4A574, // Darker tan/brown color
+    color: 0xFFFAF0, // Lighter cream/white color
     roughness: 0.3,
     metalness: 0.1,
-    emissive: 0xC8935A, // Darker warm brown emissive
-    emissiveIntensity: 0.15,
+    emissive: 0xFFE5CC, // Lighter warm cream emissive
+    emissiveIntensity: 0.25,
   });
 
   const textMesh = new THREE.Mesh(textGeometry, textMaterial);
@@ -140,10 +140,10 @@ function createAllTextFaces() {
   const line2 = createTextMesh("Albert Lungu", 0.48); // Special colored name
   if (line2) {
     line2.position.y = -0.4;
-    // Update material to darker warm colors
-    line2.material.color.setHex(0xD4A574); // Darker tan/brown
-    line2.material.emissive.setHex(0xC8935A); // Darker warm brown emissive
-    line2.material.emissiveIntensity = 0.2;
+    // Update material to lighter warm colors
+    line2.material.color.setHex(0xFFFFFF); // Pure white for name
+    line2.material.emissive.setHex(0xFFEEDD); // Lighter warm cream emissive
+    line2.material.emissiveIntensity = 0.3;
     face0.add(line2);
   }
   if (line1) face0.add(line1);
