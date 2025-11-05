@@ -31,8 +31,7 @@ let loadedFont = null;
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
 let hoveredButton = null;
-let isScrolling = false;
-let scrollTimeout = null;
+let scrollLock = false;
 
 const overlayState = {
   index: 0,
@@ -142,10 +141,10 @@ function createAllTextFaces() {
   const line2 = createTextMesh("Albert Lungu", 0.48); // Special colored name
   if (line2) {
     line2.position.y = -0.4;
-    // Update material to lighter warm colors
-    line2.material.color.setHex(0xFFFFFF); // Pure white for name
-    line2.material.emissive.setHex(0xFFEEDD); // Lighter warm cream emissive
-    line2.material.emissiveIntensity = 0.3;
+    // Bright orange color for name
+    line2.material.color.setHex(0xFFAA66); // Bright orange
+    line2.material.emissive.setHex(0xFF8844); // Orange emissive
+    line2.material.emissiveIntensity = 0.4;
     face0.add(line2);
   }
   if (line1) face0.add(line1);
@@ -282,26 +281,14 @@ function animate() {
 
   const elapsed = clock?.getElapsedTime() ?? 0;
 
-  // Two-state rotation: smooth while scrolling, snap with bounce when stopped
-  if (isScrolling) {
-    // Smooth follow during active scrolling - no bounce
-    currentRotation = THREE.MathUtils.lerp(currentRotation, targetRotation, 0.2);
-    rotationVelocity = 0; // Reset velocity during scrolling
-  } else {
-    // Snap to nearest notch with spring bounce when not scrolling
-    const nearestNotch = Math.round(targetRotation / ROTATION_PER_FACE) * ROTATION_PER_FACE;
-    const stiffness = 0.15;
-    const damping = 0.7;
-    const delta = nearestNotch - currentRotation;
-    const spring = delta * stiffness;
-    rotationVelocity += spring;
-    rotationVelocity *= damping;
-    currentRotation += rotationVelocity;
-
-    // Update overlay index based on nearest notch
-    overlayState.index = Math.round(nearestNotch / ROTATION_PER_FACE) % FACE_COUNT;
-    if (overlayState.index < 0) overlayState.index += FACE_COUNT;
-  }
+  // Spring bounce animation to target rotation
+  const stiffness = 0.15;
+  const damping = 0.7;
+  const delta = targetRotation - currentRotation;
+  const spring = delta * stiffness;
+  rotationVelocity += spring;
+  rotationVelocity *= damping;
+  currentRotation += rotationVelocity;
   const focusFactor = heroInFocus() ? 1 : 0.3;
   const idleRotate = Math.sin(elapsed * 0.35) * IDLE_ROTATE_MAX * focusFactor;
   const idleTilt = Math.sin(elapsed * 0.45) * IDLE_TILT_MAX * focusFactor;
@@ -406,7 +393,7 @@ function handleResize() {
 
 function bindInteractions(canvas) {
   const onWheel = (event) => {
-    if (!heroInFocus()) {
+    if (scrollLock || !heroInFocus()) {
       return;
     }
     const { deltaY } = event;
@@ -414,21 +401,12 @@ function bindInteractions(canvas) {
       return;
     }
 
-    // Continuously update target rotation for smooth scrolling
-    const scrollSensitivity = 0.01;
-    targetRotation += deltaY * scrollSensitivity;
-
-    // Mark as scrolling
-    isScrolling = true;
-
-    // Clear existing timeout and set new one
-    if (scrollTimeout) {
-      clearTimeout(scrollTimeout);
-    }
-    scrollTimeout = setTimeout(() => {
-      isScrolling = false;
-    }, 150);
-
+    // Discrete rotation with bounce
+    scrollLock = true;
+    rotatePill(deltaY > 0 ? -1 : 1);
+    setTimeout(() => {
+      scrollLock = false;
+    }, 600);
     event.preventDefault();
   };
 
