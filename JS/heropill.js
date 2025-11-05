@@ -191,10 +191,19 @@ function createAllTextFaces() {
 }
 
 function createButtonMesh(text, yPos) {
-  // Create button background
+  // Create button background with rounded corners
   const buttonGroup = new THREE.Group();
 
-  const buttonGeometry = new THREE.BoxGeometry(2.2, 0.4, 0.1);
+  // Create rounded button using multiple shapes
+  const width = 2.2;
+  const height = 0.4;
+  const depth = 0.1;
+  const radius = 0.15; // Corner radius
+
+  // Use CapsuleGeometry rotated for rounded pill-shaped button
+  const buttonGeometry = new THREE.CapsuleGeometry(height / 2, width - height, 16, 8);
+  buttonGeometry.rotateZ(Math.PI / 2);
+
   const buttonMaterial = new THREE.MeshStandardMaterial({
     color: 0xFF9058,
     roughness: 0.4,
@@ -206,10 +215,10 @@ function createButtonMesh(text, yPos) {
   const buttonBg = new THREE.Mesh(buttonGeometry, buttonMaterial);
   buttonGroup.add(buttonBg);
 
-  // Add text on button
-  const buttonText = createTextMesh(text, 0.18);
+  // Add text on button - increased size from 0.18 to 0.24
+  const buttonText = createTextMesh(text, 0.24);
   if (buttonText) {
-    buttonText.position.z = 0.06;
+    buttonText.position.z = 0.25;
     buttonGroup.add(buttonText);
   }
 
@@ -377,7 +386,7 @@ function bindInteractions(canvas) {
       return;
     }
     scrollLock = true;
-    rotatePill(deltaY > 0 ? 1 : -1);
+    rotatePill(deltaY > 0 ? -1 : 1); // Reversed scroll direction
     setTimeout(() => {
       scrollLock = false;
     }, 800);
