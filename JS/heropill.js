@@ -107,11 +107,11 @@ function createTextMesh(text, size = 0.3) {
   const centerOffset = -0.5 * (textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x);
 
   const textMaterial = new THREE.MeshStandardMaterial({
-    color: 0xFFEED9,
+    color: 0xD4A574, // Darker tan/brown color
     roughness: 0.3,
     metalness: 0.1,
-    emissive: 0xFFCCA0,
-    emissiveIntensity: 0.2,
+    emissive: 0xC8935A, // Darker warm brown emissive
+    emissiveIntensity: 0.15,
   });
 
   const textMesh = new THREE.Mesh(textGeometry, textMaterial);
@@ -140,10 +140,10 @@ function createAllTextFaces() {
   const line2 = createTextMesh("Albert Lungu", 0.48); // Special colored name
   if (line2) {
     line2.position.y = -0.4;
-    // Update material to match old warm gradient colors
-    line2.material.color.setHex(0xFFD6AA); // Warmer peachy color from gradient
-    line2.material.emissive.setHex(0xFFB882); // Warmer emissive
-    line2.material.emissiveIntensity = 0.3;
+    // Update material to darker warm colors
+    line2.material.color.setHex(0xD4A574); // Darker tan/brown
+    line2.material.emissive.setHex(0xC8935A); // Darker warm brown emissive
+    line2.material.emissiveIntensity = 0.2;
     face0.add(line2);
   }
   if (line1) face0.add(line1);
@@ -194,11 +194,25 @@ function createButtonMesh(text, yPos) {
   // Create button background with rounded corners
   const buttonGroup = new THREE.Group();
 
-  // Create rounded button using multiple shapes
-  const width = 2.2;
-  const height = 0.4;
-  const depth = 0.1;
-  const radius = 0.15; // Corner radius
+  // Add text on button first to calculate size - increased size from 0.18 to 0.24
+  const buttonText = createTextMesh(text, 0.24);
+
+  let width = 2.2;
+  let height = 0.5;
+
+  if (buttonText) {
+    // Calculate text dimensions
+    buttonText.geometry.computeBoundingBox();
+    const textWidth = buttonText.geometry.boundingBox.max.x - buttonText.geometry.boundingBox.min.x;
+    const textHeight = buttonText.geometry.boundingBox.max.y - buttonText.geometry.boundingBox.min.y;
+
+    // Add padding around text (50% extra width, 100% extra height)
+    width = textWidth * 1.5;
+    height = textHeight * 2.0;
+
+    buttonText.position.z = 0.25;
+    buttonGroup.add(buttonText);
+  }
 
   // Use CapsuleGeometry rotated for rounded pill-shaped button
   const buttonGeometry = new THREE.CapsuleGeometry(height / 2, width - height, 16, 8);
@@ -214,13 +228,6 @@ function createButtonMesh(text, yPos) {
 
   const buttonBg = new THREE.Mesh(buttonGeometry, buttonMaterial);
   buttonGroup.add(buttonBg);
-
-  // Add text on button - increased size from 0.18 to 0.24
-  const buttonText = createTextMesh(text, 0.24);
-  if (buttonText) {
-    buttonText.position.z = 0.25;
-    buttonGroup.add(buttonText);
-  }
 
   buttonGroup.position.y = yPos;
 
