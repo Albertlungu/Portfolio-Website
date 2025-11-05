@@ -14,8 +14,6 @@
     <link rel='stylesheet' href='../CSS/text.css'>
 </head>
 <body>
-    <canvas id='bg'></canvas>
-
     <main class='about-page'>
         <header class='about-page__bar'>
             <a class='home-link' href='../HTML/index.html' aria-label='Go home'>
@@ -139,17 +137,7 @@
         </div>
     </main>
 
-    <!-- Three.js for background -->
-    <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/jsm/"
-      }
-    }
-    </script>
-    <script type="module" src="../JS/background.js"></script>
-    <script type="module" src="../JS/about-particles.js"></script>
+    <!-- Animation libraries -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script type="module" src="../JS/about-motion.js"></script>
