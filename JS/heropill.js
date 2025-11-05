@@ -131,18 +131,20 @@ function createAllTextFaces() {
   textGroups.forEach(group => capsuleGroup.remove(group));
   textGroups = [];
 
-  // Face 0: "Hey guys! I'm Albert Lungu" (0°)
+  const radius = 1.5; // Distance from center
+
+  // Face 0: "Hey guys! I'm Albert Lungu" (0°) - Front facing
   const face0 = new THREE.Group();
   const line1 = createTextLine("Hey guys! I'm", 0.3, 0.28);
   const line2 = createTextLine("Albert Lungu", -0.3, 0.35);
   if (line1) face0.add(line1);
   if (line2) face0.add(line2);
-  face0.position.set(0, 0, 1.5);
-  face0.rotation.y = 0;
+  face0.position.set(0, 0, radius);
+  face0.rotation.x = 0; // Rotate around X-axis since pill is horizontal
   textGroups.push(face0);
   capsuleGroup.add(face0);
 
-  // Face 1: Description (120°)
+  // Face 1: Description (120° around X-axis)
   const face1 = new THREE.Group();
   const desc1 = createTextLine("I'm a fullstack", 0.6, 0.22);
   const desc2 = createTextLine("developer exploring", 0.2, 0.22);
@@ -152,12 +154,15 @@ function createAllTextFaces() {
   if (desc2) face1.add(desc2);
   if (desc3) face1.add(desc3);
   if (desc4) face1.add(desc4);
-  face1.position.set(0, 0, 1.5);
-  face1.rotation.y = (Math.PI * 2) / 3;
+
+  // Position on the cylinder surface at 120 degrees
+  const angle1 = (Math.PI * 2) / 3; // 120 degrees
+  face1.position.set(0, Math.sin(angle1) * radius, Math.cos(angle1) * radius);
+  face1.rotation.x = angle1;
   textGroups.push(face1);
   capsuleGroup.add(face1);
 
-  // Face 2: Links (240°)
+  // Face 2: Links (240° around X-axis)
   const face2 = new THREE.Group();
   const link1 = createButtonMesh("See my projects!", 0.6);
   const link2 = createButtonMesh("About me", 0);
@@ -165,8 +170,11 @@ function createAllTextFaces() {
   if (link1) face2.add(link1);
   if (link2) face2.add(link2);
   if (link3) face2.add(link3);
-  face2.position.set(0, 0, 1.5);
-  face2.rotation.y = (Math.PI * 4) / 3;
+
+  // Position on the cylinder surface at 240 degrees
+  const angle2 = (Math.PI * 4) / 3; // 240 degrees
+  face2.position.set(0, Math.sin(angle2) * radius, Math.cos(angle2) * radius);
+  face2.rotation.x = angle2;
   textGroups.push(face2);
   capsuleGroup.add(face2);
 }
