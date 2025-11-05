@@ -11,9 +11,34 @@
 
     <link rel='stylesheet' href='../CSS/about.css'>
     <link rel='stylesheet' href='../CSS/background.css'>
+    <link rel='stylesheet' href='../CSS/objects.css'>
     <link rel='stylesheet' href='../CSS/text.css'>
 </head>
 <body>
+    <div class="hero-parallax" aria-hidden="true">
+        <div class="parallax-layer parallax-layer--belts" data-depth="0.18">
+            <span class="belt belt--one"></span>
+            <span class="belt belt--two"></span>
+            <span class="belt belt--three"></span>
+        </div>
+
+        <div class="parallax-layer parallax-layer--symbols" data-depth="0.36">
+            <span class="math-symbol math-symbol--sigma">∑</span>
+            <span class="math-symbol math-symbol--pi">π</span>
+            <span class="math-symbol math-symbol--integral">∫</span>
+            <span class="math-symbol math-symbol--phi">φ</span>
+            <span class="math-symbol math-symbol--lambda">λ</span>
+        </div>
+
+        <div class="parallax-layer parallax-layer--snippets" data-depth="0.5">
+            <span class="code-snippet code-snippet--one"><code>print("Hello World!")</code></span>
+            <span class="code-snippet code-snippet--two"><code>while (true) { coffee++; }</code></span>
+            <span class="code-snippet code-snippet--three"><code>git commit -m "final_final_v2"</code></span>
+            <span class="code-snippet code-snippet--four"><code>// TODO: remove debug logs</code></span>
+            <span class="code-snippet code-snippet--five"><code>try { ship(); } catch (bugs) { patch(); }</code></span>
+        </div>
+    </div>
+
     <main class='about-page'>
         <header class='about-page__bar'>
             <a class='home-link' href='../HTML/index.html' aria-label='Go home'>
@@ -142,5 +167,6 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script type="module" src="../JS/about-motion.js"></script>
     <script src="../JS/github-repos.js"></script>
+    <script src="../JS/main.js"></script>
 </body>
 </html>
