@@ -10,30 +10,30 @@
 
   // Add path helper at the top
   function resolvePath(path) {
-    // Remove any '../' from the start of the path
-    return path.replace(/^\.\.\//, '/');
+    // Keep paths as-is since we're using relative paths from HTML folder
+    return path;
   }
 
   const projects = {
     magsafe: {
       name: 'DIY MagSafe Charger',
-      image: '/Assets/Images/Project1/MS Side.jpg',
-      readme: '/Assets/readmes/project1-readme.md',
+      image: '../Assets/Images/Project1/MS Side.jpg',
+      readme: '../Assets/readmes/project1-readme.md',
       github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/1-DIY_MagSafe_Charger',
       models: {
-        top: '/Assets/STL/Project1/MagSafe Top.stl',
-        bottom: '/Assets/STL/Project1/MagSafe Bottom.stl',
+        top: '../Assets/STL/Project1/MagSafe Top.stl',
+        bottom: '../Assets/STL/Project1/MagSafe Bottom.stl',
       },
     },
     height: {
       name: 'Height Measurement Device',
       image: '#',
-      readme: '/Assets/readmes/project2-readme.md',
+      readme: '../Assets/readmes/project2-readme.md',
       github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/2-Height_Measurement_Device',
       models: {
-        case: '/Assets/STL/Project2/Height Measurement 3D design.stl'
+        case: '../Assets/STL/Project2/Height Measurement 3D Design.stl'
       },
-      arduino: '/Assets/Other/Project2/height_measurement_V1.ino',
+      arduino: '../Assets/Other/Project2/height_measurement_V1.ino',
     },
     csportfolio: {
       name: 'CS Portfolio',
@@ -61,7 +61,7 @@
       description: 'Ottawa hackathon submission',
       github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/1-Daydream_2025',
       readme: 'https://raw.githubusercontent.com/Albertlungu/CS-Portfolio/main/Hackathons/1-Daydream_2025/README.md',
-      image: '/Assets/Images/Daydream/daydream_ottawa.png',
+      image: '../Assets/Images/Daydream/daydream_ottawa.png',
       language: 'Python',
       cloneUrl: 'git clone https://github.com/Albertlungu/CS-Portfolio.git',
       teammates: [
@@ -74,7 +74,7 @@
       description: 'A calm lil RPG 3D Indie game for DAYDREAM GLOBAL',
       github: 'https://github.com/Albertlungu/ashes_of_the_fallen_demo',
       readme: 'https://raw.githubusercontent.com/Albertlungu/ashes_of_the_fallen_demo/main/README.md',
-      image: '/Assets/Images/Daydream/daydream_global.png',
+      image: '../Assets/Images/Daydream/daydream_global.png',
       language: 'GDScript',
       itchIo: 'https://albertlungu.itch.io/ashes-of-the-fallen',
       executable: '/Users/albertlungu/Documents/ashes-of-the-fallen-demo/Ashes of The Fallen.exe',
@@ -272,7 +272,7 @@ Bro its not that deep its a godot project on itch.io
 
     // Determine if this is a remote or local README
     const isRemoteReadme = project.readme.startsWith('http');
-    const readmePath = isRemoteReadme ? project.readme : (project.readme.startsWith('/') ? project.readme : `/${project.readme}`);
+    const readmePath = project.readme;
 
     fetch(readmePath)
       .then(response => {
