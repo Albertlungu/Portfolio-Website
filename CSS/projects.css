@@ -123,7 +123,7 @@ main.projects-page {
 }
 
 .project-list__item:hover::before {
-    height: 150%;
+    height: 85%;
     opacity: 0.6;
 }
 
@@ -132,7 +132,7 @@ main.projects-page {
 }
 
 .project-list__item.active::before {
-    height: 160%;
+    height: 90%;
     opacity: 1;
 }
 
