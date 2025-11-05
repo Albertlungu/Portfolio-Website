@@ -21,6 +21,7 @@ let capsuleGroup;
 let baseRotation = 0;
 let targetRotation = 0;
 let currentRotation = 0;
+let rotationVelocity = 0;
 let animationFrame;
 let scrollLock = false;
 let interacted = false;
@@ -155,10 +156,10 @@ function createAllTextFaces() {
 
   // Face 1: Description (120° around X-axis)
   const face1 = new THREE.Group();
-  const desc1 = createTextLine("I'm a fullstack", 0.8, 0.3); // Increased sizes
-  const desc2 = createTextLine("developer exploring", 0.3, 0.3);
+  const desc1 = createTextLine("I'm a fullstack", 0.6, 0.3); // Adjusted positions for better depth visibility
+  const desc2 = createTextLine("developer exploring", 0.15, 0.3);
   const desc3 = createTextLine("game dev, web dev,", -0.3, 0.3);
-  const desc4 = createTextLine("and app dev.", -0.8, 0.3);
+  const desc4 = createTextLine("and app dev.", -0.75, 0.3);
   if (desc1) face1.add(desc1);
   if (desc2) face1.add(desc2);
   if (desc3) face1.add(desc3);
@@ -280,7 +281,14 @@ function animate() {
 
   const elapsed = clock?.getElapsedTime() ?? 0;
 
-  currentRotation = THREE.MathUtils.damp(currentRotation, targetRotation, 12, 0.035);
+  // Spring physics with bounce
+  const stiffness = 0.15; // Spring stiffness
+  const damping = 0.7; // Damping factor (lower = more bounce)
+  const delta = targetRotation - currentRotation;
+  const spring = delta * stiffness;
+  rotationVelocity += spring;
+  rotationVelocity *= damping;
+  currentRotation += rotationVelocity;
   const focusFactor = heroInFocus() ? 1 : 0.3;
   const idleRotate = Math.sin(elapsed * 0.35) * IDLE_ROTATE_MAX * focusFactor;
   const idleTilt = Math.sin(elapsed * 0.45) * IDLE_TILT_MAX * focusFactor;
@@ -396,7 +404,7 @@ function bindInteractions(canvas) {
     rotatePill(deltaY > 0 ? -1 : 1); // Reversed scroll direction
     setTimeout(() => {
       scrollLock = false;
-    }, 800);
+    }, 450); // Reduced from 800ms to 450ms for snappier scroll
     event.preventDefault();
   };
 
