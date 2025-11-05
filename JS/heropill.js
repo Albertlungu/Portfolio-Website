@@ -30,6 +30,7 @@ let textGroups = [];
 let loadedFont = null;
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
+let hoveredButton = null;
 
 const overlayState = {
   index: 0,
@@ -37,7 +38,7 @@ const overlayState = {
 
 function initScene(canvas) {
   scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x1f0e08, 0.02);
+  scene.fog = new THREE.FogExp2(0x1f0e08, 0.005); // Reduced fog for better text visibility
   clock = new THREE.Clock();
 
   camera = new THREE.PerspectiveCamera(35, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
@@ -131,25 +132,33 @@ function createAllTextFaces() {
   textGroups.forEach(group => capsuleGroup.remove(group));
   textGroups = [];
 
-  const radius = 1.5; // Distance from center
+  const radius = 2.2; // Distance from center (increased for larger pill)
 
   // Face 0: "Hey guys! I'm Albert Lungu" (0°) - Front facing
   const face0 = new THREE.Group();
-  const line1 = createTextLine("Hey guys! I'm", 0.3, 0.28);
-  const line2 = createTextLine("Albert Lungu", -0.3, 0.35);
+  const line1 = createTextLine("Hey guys! I'm", 0.4, 0.38); // Increased sizes
+  const line2 = createTextMesh("Albert Lungu", 0.48); // Special colored name
+  if (line2) {
+    line2.position.y = -0.4;
+    // Update material to match old warm gradient colors
+    line2.material.color.setHex(0xFFD6AA); // Warmer peachy color from gradient
+    line2.material.emissive.setHex(0xFFB882); // Warmer emissive
+    line2.material.emissiveIntensity = 0.3;
+    face0.add(line2);
+  }
   if (line1) face0.add(line1);
-  if (line2) face0.add(line2);
   face0.position.set(0, 0, radius);
-  face0.rotation.x = 0; // Rotate around X-axis since pill is horizontal
+  face0.rotation.x = 0; // Flip 180° around X-axis
+  face0.rotation.y = 0; // Flip 180° around Y-axis (vertical flip)
   textGroups.push(face0);
   capsuleGroup.add(face0);
 
   // Face 1: Description (120° around X-axis)
   const face1 = new THREE.Group();
-  const desc1 = createTextLine("I'm a fullstack", 0.6, 0.22);
-  const desc2 = createTextLine("developer exploring", 0.2, 0.22);
-  const desc3 = createTextLine("game dev, web dev,", -0.2, 0.22);
-  const desc4 = createTextLine("and app dev.", -0.6, 0.22);
+  const desc1 = createTextLine("I'm a fullstack", 0.8, 0.3); // Increased sizes
+  const desc2 = createTextLine("developer exploring", 0.3, 0.3);
+  const desc3 = createTextLine("game dev, web dev,", -0.3, 0.3);
+  const desc4 = createTextLine("and app dev.", -0.8, 0.3);
   if (desc1) face1.add(desc1);
   if (desc2) face1.add(desc2);
   if (desc3) face1.add(desc3);
@@ -158,15 +167,16 @@ function createAllTextFaces() {
   // Position on the cylinder surface at 120 degrees
   const angle1 = (Math.PI * 2) / 3; // 120 degrees
   face1.position.set(0, Math.sin(angle1) * radius, Math.cos(angle1) * radius);
-  face1.rotation.x = angle1;
+  face1.rotation.x = angle1 + Math.PI/2; // Add 180° flip around X-axis
+  face1.rotation.y = 0; // Flip 180° around Y-axis (vertical flip)
   textGroups.push(face1);
   capsuleGroup.add(face1);
 
   // Face 2: Links (240° around X-axis)
   const face2 = new THREE.Group();
-  const link1 = createButtonMesh("See my projects!", 0.6);
+  const link1 = createButtonMesh("See my projects!", 0.9); // Increased vertical spacing
   const link2 = createButtonMesh("About me", 0);
-  const link3 = createButtonMesh("My Resume", -0.6);
+  const link3 = createButtonMesh("My Resume", -0.9);
   if (link1) face2.add(link1);
   if (link2) face2.add(link2);
   if (link3) face2.add(link3);
@@ -174,7 +184,8 @@ function createAllTextFaces() {
   // Position on the cylinder surface at 240 degrees
   const angle2 = (Math.PI * 4) / 3; // 240 degrees
   face2.position.set(0, Math.sin(angle2) * radius, Math.cos(angle2) * radius);
-  face2.rotation.x = angle2;
+  face2.rotation.x = angle2 - 90; // Add 180° flip around X-axis
+  face2.rotation.y = 0; // Flip 180° around Y-axis (vertical flip)
   textGroups.push(face2);
   capsuleGroup.add(face2);
 }
@@ -216,7 +227,7 @@ function createButtonMesh(text, yPos) {
 }
 
 function buildCapsule() {
-  const capsuleRadius = 1.4;
+  const capsuleRadius = 2.0; // Increased from 1.4 for larger girth
   const capsuleLength = 7.5;
 
   const bodyGeometry = new THREE.CapsuleGeometry(capsuleRadius, capsuleLength, 28, 36);
@@ -263,6 +274,29 @@ function animate() {
   capsuleGroup.rotation.y = BASE_TILT_X + idleTilt;
   capsuleGroup.rotation.z = idleTilt * 0.4;
   capsuleGroup.position.y = idleBob;
+
+  // Animate button hover effects
+  textGroups.forEach(group => {
+    group.traverse((child) => {
+      if (child.userData && child.userData.isButton) {
+        const targetScale = child === hoveredButton ? 1.08 : 1;
+        child.scale.x = THREE.MathUtils.lerp(child.scale.x, targetScale, 0.15);
+        child.scale.y = THREE.MathUtils.lerp(child.scale.y, targetScale, 0.15);
+        child.scale.z = THREE.MathUtils.lerp(child.scale.z, targetScale, 0.15);
+
+        // Update emissive intensity for hover glow
+        const buttonBg = child.children[0];
+        if (buttonBg && buttonBg.material) {
+          const targetIntensity = child === hoveredButton ? 0.35 : 0.15;
+          buttonBg.material.emissiveIntensity = THREE.MathUtils.lerp(
+            buttonBg.material.emissiveIntensity,
+            targetIntensity,
+            0.15
+          );
+        }
+      }
+    });
+  });
 
   if (camera) {
     camera.lookAt(capsuleGroup.position);
@@ -382,6 +416,41 @@ function bindInteractions(canvas) {
     touchState.startX = null;
   };
 
+  const onMouseMove = (event) => {
+    if (!camera || !scene) return;
+
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+
+    // Check all button meshes in text groups
+    const allButtons = [];
+    textGroups.forEach(group => {
+      group.traverse((child) => {
+        if (child.userData && child.userData.isButton) {
+          allButtons.push(child);
+        }
+      });
+    });
+
+    const intersects = raycaster.intersectObjects(allButtons, true);
+
+    if (intersects.length > 0) {
+      let button = intersects[0].object;
+      // Traverse up to find the button group
+      while (button && !button.userData.isButton) {
+        button = button.parent;
+      }
+      hoveredButton = button;
+      canvas.style.cursor = 'pointer';
+    } else {
+      hoveredButton = null;
+      canvas.style.cursor = 'default';
+    }
+  };
+
   const onClick = (event) => {
     if (!camera || !scene) return;
 
@@ -425,9 +494,9 @@ function bindInteractions(canvas) {
   canvas.addEventListener('keydown', onKey);
   canvas.addEventListener('touchstart', onTouchStart, { passive: true });
   canvas.addEventListener('touchend', onTouchEnd);
+  canvas.addEventListener('mousemove', onMouseMove);
   canvas.addEventListener('click', onClick);
   canvas.setAttribute('tabindex', '0');
-  canvas.style.cursor = 'pointer';
 }
 
 function queueRerender() {
