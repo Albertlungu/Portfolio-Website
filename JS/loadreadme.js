@@ -61,6 +61,7 @@
       description: 'Ottawa hackathon submission',
       github: 'https://github.com/Albertlungu/CS-Portfolio/tree/main/Hackathons/1-Daydream_2025',
       readme: 'https://raw.githubusercontent.com/Albertlungu/CS-Portfolio/main/Hackathons/1-Daydream_2025/README.md',
+      image: '/Assets/Images/Daydream/daydream_ottawa.png',
       language: 'Python',
       cloneUrl: 'git clone https://github.com/Albertlungu/CS-Portfolio.git',
       teammates: [
@@ -73,6 +74,7 @@
       description: 'A calm lil RPG 3D Indie game for DAYDREAM GLOBAL',
       github: 'https://github.com/Albertlungu/ashes_of_the_fallen_demo',
       readme: 'https://raw.githubusercontent.com/Albertlungu/ashes_of_the_fallen_demo/main/README.md',
+      image: '/Assets/Images/Daydream/daydream_global.png',
       language: 'GDScript',
       itchIo: 'https://albertlungu.itch.io/ashes-of-the-fallen',
       executable: '/Users/albertlungu/Documents/ashes-of-the-fallen-demo/Ashes of The Fallen.exe',
